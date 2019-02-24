@@ -1,0 +1,72 @@
+baza danych:
+- MongoDB + mongoose
+
+backend: 
+- NodeJS + expressjs
+- login system + passport js
+- rest api
+
+frontend:
+- React + redux
+- blog prawdopodobnie graphql + gatsby
+
+bundler: 
+- webpack
+
+
+O projekcie:
+
+- prosta strona, przedstawiaj¹ca informacje na temat przedszkola oraz jego dzia³alnoœci. 
+- system dla rodziców, gdzie dostaj¹ notifykacje na temat przysz³ych wydarzeñ w przedszkolu + mog¹ zapytaæ coœ ich wyk³adowce.
+- blog z wydarzeñ.
+
+
+
+header:
+- logo
+- menu ( strona glowna, aktualnosci, o przedszkolu, kontakt(jezeli jestes zalogowany), panel(jezeli jestes zalogowany), rekrutacja
+- opcje logowania
+
+najnowsze wpisy: 
+- wyœwietlenie dwóch ostatnich wpisów
+- z dat¹, krótkim opisem i zdj
+
+o przedszkolu
+
+Nasi Absolwenci: 
+- Cieszy siê dobrym zdrowiem,
+
+- Zawsze mówi prawdê,
+
+- Lubi pracê twórcz¹,
+
+- Radzi sobie z czynnoœciami samoobs³ugowymi,
+
+- Jest zawsze aktywny,
+
+- Jest radosny i uœmiechniêty,
+
+- Jest otwarty na otaczaj¹cy go œwiat,
+
+- To dobry kolega,
+
+- Niesie pomoc potrzebuj¹cym,
+
+- Rozróznia dobro od z³a,
+
+- Posiada odpowiednie umiejêtnoœci i sprawnoœci do podjêcia nauki w szkole.
+
+
+lokalizacja:
+wyciêta mapa z lokalizacj¹ googlemaps
+
+footer:
+- menu (polityka prywatnosci, panel, rekrutacja, kontakt)
+- copyright
+
+main-colory:
+- zielony
+- brazowy 
+
+
+
