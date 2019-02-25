@@ -74,7 +74,7 @@ class News extends Component {
     return (
       <NewsContainer>
         <SectionTitle title={title} img={calendaryImg} />
-        {newsList.slice(0, 3)}
+        {newsList}
       </NewsContainer>
     );
   }

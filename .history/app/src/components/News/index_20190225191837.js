@@ -71,10 +71,11 @@ class News extends Component {
 
   render() {
     const { newsList, title } = this.state
+    console.log(typeof newsList)
     return (
       <NewsContainer>
         <SectionTitle title={title} img={calendaryImg} />
-        {newsList.slice(0, 3)}
+        {newsList[0]}
       </NewsContainer>
     );
   }

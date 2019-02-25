@@ -71,10 +71,15 @@ class News extends Component {
 
   render() {
     const { newsList, title } = this.state
+    console.log(newsList)
     return (
       <NewsContainer>
         <SectionTitle title={title} img={calendaryImg} />
-        {newsList.slice(0, 3)}
+        {newsList.forEach((e, i) => {
+          if (i < 3) {
+            return e
+          }
+        })}
       </NewsContainer>
     );
   }
