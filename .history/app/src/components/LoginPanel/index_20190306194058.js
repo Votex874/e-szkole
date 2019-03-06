@@ -17,7 +17,7 @@ const Container = styled.section`
 const BoxShadow = styled.div`
   @media (min-width: 1400px){
     margin: 50px auto;
-    box-shadow: 5px 5px 20px 0px rgba(0, 0, 0, 0.5);
+    box-shadow: 5px 5px 20px 0px rgba(0,0,0,0.5);
     border-radius: 10px;
     width: 500px;
     padding: 15px 0;
