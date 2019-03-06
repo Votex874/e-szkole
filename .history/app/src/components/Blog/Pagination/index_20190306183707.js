@@ -24,16 +24,9 @@ const PaginationItem = styled.div`
   justify-content: center;
   align-items: center;
   font-weight: bold;
-  cursor: pointer;
   @media (max-width: 767px){  
     width: 20px;
     height: 20px;
-  }
-  @media (min-width: 1400px){
-    &:hover{
-      color: #fff;
-      background-color: ${lightBlue}
-    }
   }
 `
 

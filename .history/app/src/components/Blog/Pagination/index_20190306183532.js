@@ -7,16 +7,15 @@ import { lightBlue } from '../../../constColors'
 const PaginationContainer = styled.section`
   display: flex;
   justify-content: space-between;
-  margin: 30px auto;
-  width: 180px;
+  margin: 0 auto;
   @media (max-width: 767px){
     width: 120px;
   }
 `
 
 const PaginationItem = styled.div`
-  width: 26px;
-  height: 26px;
+  width: 20px;
+  height: 20px;
   border-radius: 5px;
   border: 1px solid ${lightBlue};
   color: ${lightBlue};
@@ -24,16 +23,9 @@ const PaginationItem = styled.div`
   justify-content: center;
   align-items: center;
   font-weight: bold;
-  cursor: pointer;
   @media (max-width: 767px){  
     width: 20px;
     height: 20px;
-  }
-  @media (min-width: 1400px){
-    &:hover{
-      color: #fff;
-      background-color: ${lightBlue}
-    }
   }
 `
 
@@ -77,15 +69,13 @@ class Pagination extends Component {
     const { paginationClicked } = this.props
     if(typeof paginationClicked === 'function')
       paginationClicked(id)
-
-    this.createPaginationList(id)
   }
 
   render(){
     const { paginationItems } = this.state
     return (
       <PaginationContainer>
-        {paginationItems}
+      {paginationItems}
       </PaginationContainer>
     )
   }

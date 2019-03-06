@@ -17,7 +17,7 @@ class Blog extends Component {
     this.state = {
       title: "Aktualności",
       postList: [],
-      currentPage: 0
+      currentPage: 1
     }
   }
 
@@ -32,25 +32,20 @@ class Blog extends Component {
     })
   }
 
-  handlePagination = (id) => {
-    if(!(id === this.state.currentPage)){
-      window.scrollTo(0,0)
-    }
-    this.setState({
-      currentPage: id
-    })
+  handlePagination = () => {
+
   }
 
   render(){
     const { postList, currentPage } = this.state
+
     return ( 
       <React.Fragment>
         <BlogContainer>
         <SectionTitle img={IconNews} title={this.state.title} />
           {postList.slice((currentPage * 5), ((currentPage + 1) * 5))}
         </BlogContainer>
-        <Pagination 
-          paginationClicked={this.handlePagination} />
+        <Pagination pagesNumber={Math.ceil((postList.length) / 5)} />
       </React.Fragment>
     )
   }

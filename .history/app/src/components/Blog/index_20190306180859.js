@@ -50,7 +50,8 @@ class Blog extends Component {
           {postList.slice((currentPage * 5), ((currentPage + 1) * 5))}
         </BlogContainer>
         <Pagination 
-          paginationClicked={this.handlePagination} />
+          paginationClicked={this.handlePagination} 
+          postList={postList} />
       </React.Fragment>
     )
   }

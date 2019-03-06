@@ -33,9 +33,6 @@ class Blog extends Component {
   }
 
   handlePagination = (id) => {
-    if(!(id === this.state.currentPage)){
-      window.scrollTo(0,0)
-    }
     this.setState({
       currentPage: id
     })
@@ -43,6 +40,7 @@ class Blog extends Component {
 
   render(){
     const { postList, currentPage } = this.state
+
     return ( 
       <React.Fragment>
         <BlogContainer>
@@ -50,7 +48,8 @@ class Blog extends Component {
           {postList.slice((currentPage * 5), ((currentPage + 1) * 5))}
         </BlogContainer>
         <Pagination 
-          paginationClicked={this.handlePagination} />
+          paginationClicked={this.handlePagination} 
+          pagesNumber={Math.ceil((postList.length) / 5)} />
       </React.Fragment>
     )
   }

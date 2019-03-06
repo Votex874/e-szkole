@@ -7,33 +7,24 @@ import { lightBlue } from '../../../constColors'
 const PaginationContainer = styled.section`
   display: flex;
   justify-content: space-between;
-  margin: 30px auto;
-  width: 180px;
+  margin: 0 auto;
   @media (max-width: 767px){
-    width: 120px;
+    width: 150px;
   }
 `
 
 const PaginationItem = styled.div`
-  width: 26px;
-  height: 26px;
+  width: 20px;
+  height: 20px;
   border-radius: 5px;
   border: 1px solid ${lightBlue};
-  color: ${lightBlue};
   display: flex;
   justify-content: center;
   align-items: center;
-  font-weight: bold;
-  cursor: pointer;
-  @media (max-width: 767px){  
+  @media (max-width: 767px){
+    
     width: 20px;
     height: 20px;
-  }
-  @media (min-width: 1400px){
-    &:hover{
-      color: #fff;
-      background-color: ${lightBlue}
-    }
   }
 `
 
@@ -42,31 +33,15 @@ class Pagination extends Component {
     super(props)
 
     this.state = {
-      paginationItems: [],
-      activePaginationItem: {
-        backgroundColor: lightBlue,
-        color: '#fff'
-      }
+      paginationItems: []
     }
   }
 
   componentDidMount = () => {
-    this.createPaginationList(0)
-  }
-
-  createPaginationList = id => {
     const numberOfPaginationItems = Math.ceil(this.props.news.length / 5)
     let arrayOfPaginationItems = [];
-    for (let i = 0; i < numberOfPaginationItems; i++) {
-      if (id === i) {
-        arrayOfPaginationItems[i] = <PaginationItem
-          style={this.state.activePaginationItem}
-          onClick={() => this.handleClick(i)}
-          key={i}
-        >{i + 1}</PaginationItem>
-      } else {
-        arrayOfPaginationItems[i] = <PaginationItem onClick={() => this.handleClick(i)} key={i}>{i + 1}</PaginationItem>
-      }
+    for(let i = 0; i < numberOfPaginationItems; i++){
+      arrayOfPaginationItems.push(i)
     }
     this.setState({
       paginationItems: arrayOfPaginationItems
@@ -77,15 +52,15 @@ class Pagination extends Component {
     const { paginationClicked } = this.props
     if(typeof paginationClicked === 'function')
       paginationClicked(id)
-
-    this.createPaginationList(id)
   }
 
   render(){
     const { paginationItems } = this.state
     return (
       <PaginationContainer>
-        {paginationItems}
+      {paginationItems.map(item => (
+        <PaginationItem onClick={() => this.handleClick(item)} key={item}>{item + 1}</PaginationItem>
+      ))}
       </PaginationContainer>
     )
   }
