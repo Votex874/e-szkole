@@ -11,7 +11,7 @@ const Container = styled.section`
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin-bottom: 150px;
+    align-items: center;
   }
 `
 

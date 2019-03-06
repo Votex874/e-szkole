@@ -7,11 +7,11 @@ import IconSingIn from '../../images/icons/sign-in.png'
 
 const Container = styled.section`
   @media (min-width: 1400px){
-    height: 60vh;
+    height: 70vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin-bottom: 150px;
+    align-items: center;
   }
 `
 

@@ -17,7 +17,6 @@ class App extends Component {
           <Route path='/login' component={Login} />
           <Route path='/kontakt' component={Contact} />
           <Route path='/blog' component={News} />
-          <Route path='/o-nas' component={About} />
         </Switch>
       </BrowserRouter>
     );

@@ -6,13 +6,6 @@ import SectionTitle from '../SectionTitle/index'
 import IconSingIn from '../../images/icons/sign-in.png'
 
 const Container = styled.section`
-  @media (min-width: 1400px){
-    height: 60vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin-bottom: 150px;
-  }
 `
 
 const PanelContainer = styled.div`

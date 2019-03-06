@@ -10,8 +10,7 @@ const Container = styled.section`
     height: 60vh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    margin-bottom: 150px;
+    align-items: center;
   }
 `
 
