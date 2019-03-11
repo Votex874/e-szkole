@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
-import { lightBlue } from '../../../constColors';
 
 const LabelElement = styled.label`
   width: 400px;
@@ -20,7 +19,6 @@ const InputElement = styled.input`
   border-radius: 5px;
   border: none;
   background-color: #efefef;
-  border-bottom: 3px solid ${lightBlue};
   transition: .2s;
   @media (max-width: 767px){
     padding: 10px;

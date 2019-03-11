@@ -47,7 +47,6 @@ const InputButton = styled.input`
 `
 
 const BoxShadowContainer = styled.div`
-  position: relative;
   @media (min-width: 1400px){
     margin: 50px auto;
     box-shadow: 5px 5px 20px 0px rgba(0, 0, 0, 0.5);
@@ -120,9 +119,9 @@ class Form extends Component{
     }
 
     if (arrayOfErrors.length < 0){
-      console.log('validacja przeszła pomyślnie')
-    } else {
       console.log('validacja nie przeszła prawidłowo')
+    } else {
+      console.log('validacja przeszła pomyślnie')
     }
 
     this.setState({
@@ -130,7 +129,7 @@ class Form extends Component{
       surname: '',
       email: '',
       content: '',
-      status: arrayOfErrors.length === 0 ? 'Dziękujemy za pytanie, wkrótce się odezwiemy.' : '',
+      status: arrayOfErrors.length === 0 ? 'Dziękujemy za przesłanie pytania, wkrótce się odezwiemy' : '',
       validationError: arrayOfErrors
     })
   }
@@ -140,22 +139,22 @@ class Form extends Component{
     return ( 
       <BoxShadowContainer>
         <SectionTitle title="Napisz do nas" img={PenIcon}/>
-        <FormContainer onSubmit={this.handleValidation}>
-        <Input name="name" type="text" placeholder='Podaj swoje imie*' 
-        onChange={this.handleChange} 
-        value={name} />
-        <Input name="surname" type="text" placeholder='Podaj swoje nazwisko*'
-        onChange={this.handleChange}
-        value={surname} />
-        <Input name="email" type="email" placeholder='Podaj swój email*'
-        onChange={this.handleChange}
-        value={email} />   
-        <Textarea name="content" placeholder="O co chciałbyś nas zapytać ?*"
-        onChange={this.handleChange}
-        value={content} />   
-        <InputButton type="submit" value="Wyślij" />
         {validationError.length === 0 ? null : <MessageError content={validationError} />}
         {status.length === 0 ? null : <MessageSuccess content={status} />}
+        <FormContainer onSubmit={this.handleValidation}>
+          <Input name="name" type="text" placeholder='Podaj swoje imie*' 
+            onChange={this.handleChange} 
+            value={name} />
+          <Input name="surname" type="text" placeholder='Podaj swoje nazwisko*'
+            onChange={this.handleChange}
+            value={surname} />
+          <Input name="email" type="email" placeholder='Podaj swój email*'
+            onChange={this.handleChange}
+            value={email} />   
+          <Textarea name="content" placeholder="O co chciałbyś nas zapytać ?*"
+            onChange={this.handleChange}
+            value={content} />   
+          <InputButton type="submit" value="Wyślij" />
         </FormContainer>
       </BoxShadowContainer>
     )

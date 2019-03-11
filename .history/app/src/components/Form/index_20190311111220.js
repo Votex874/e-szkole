@@ -130,7 +130,7 @@ class Form extends Component{
       surname: '',
       email: '',
       content: '',
-      status: arrayOfErrors.length === 0 ? 'Dziękujemy za pytanie, wkrótce się odezwiemy.' : '',
+      status: arrayOfErrors.length === 0 ? 'Dziękujemy za przesłanie pytania, wkrótce się odezwiemy' : '',
       validationError: arrayOfErrors
     })
   }

@@ -1,35 +1,18 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
-import { lightBlue } from '../../../constColors';
 
 const LabelElement = styled.label`
-  width: 400px;
-  margin: 10px auto;
-  padding: 5px 0;
-  @media (max-width: 767px){ 
-    width: 240px;
+  width: 300px;
+  margin: 0 auto;
+  @media (max-width: 767px){
+    width: 280px;
   }
 `
 
 const InputElement = styled.input`
   width: 100%;
-  box-sizing: border-box;
   margin: 0 auto;
-  padding: 15px;
-  font-size: 80%;
-  border-radius: 5px;
-  border: none;
-  background-color: #efefef;
-  border-bottom: 3px solid ${lightBlue};
-  transition: .2s;
-  @media (max-width: 767px){
-    padding: 10px;
-  }
-  &:focus{
-    outline: none;
-    border-bottom: 3px solid #54F1B4;
-    background-color: #fff;
-  }
+  padding: 0;
 `
 
 class Input extends Component {
