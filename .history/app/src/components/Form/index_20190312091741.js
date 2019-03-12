@@ -120,9 +120,9 @@ class Form extends Component{
     }
 
     if (arrayOfErrors.length < 0){
-      console.log('validacja nie przeszła prawidłowo')
-    } else {
       console.log('validacja przeszła pomyślnie')
+    } else {
+      console.log('validacja nie przeszła prawidłowo')
     }
 
     this.setState({

@@ -49,9 +49,14 @@ const CancelButton = styled.div`
 class MessageError extends Component{
   constructor(props){
     super(props)
+
     this.state = {
-      style: {},
-      itemColor: {}
+      style: {
+        
+      },
+      itemColor: {
+        
+      }
     }
   }
 
@@ -82,11 +87,9 @@ class MessageError extends Component{
         color: '#fff'
       }
     })
-    setTimeout(() => {
-      if (typeof this.props.onLoad === 'function') {
-        this.props.onLoad()
-      }
-    }, 500)
+    if(typeof this.props.onLoad === 'function'){
+      this.props.onLoad()
+    }
   }
 
   render () {

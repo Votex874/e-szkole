@@ -49,9 +49,14 @@ const CancelButton = styled.div`
 class MessageError extends Component{
   constructor(props){
     super(props)
+
     this.state = {
-      style: {},
-      itemColor: {}
+      style: {
+        
+      },
+      itemColor: {
+        
+      }
     }
   }
 

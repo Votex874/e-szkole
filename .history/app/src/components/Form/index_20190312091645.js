@@ -120,9 +120,9 @@ class Form extends Component{
     }
 
     if (arrayOfErrors.length < 0){
-      console.log('validacja nie przeszła prawidłowo')
-    } else {
       console.log('validacja przeszła pomyślnie')
+    } else {
+      console.log('validacja nie przeszła prawidłowo')
     }
 
     this.setState({
@@ -161,8 +161,8 @@ class Form extends Component{
         onChange={this.handleChange}
         value={content} />   
         <InputButton type="submit" value="Wyślij" />
-        {validationError.length === 0 ? null : <MessageError onLoad={this.hideMessages} content={validationError} />}
-          {status.length === 0 ? null : <MessageSuccess onLoad={this.hideMessages}  content={status} />}
+        {validationError.length === 0 ? null : <MessageError content={validationError} />}
+        {status.length === 0 ? null : <MessageSuccess content={status} />}
         </FormContainer>
       </BoxShadowContainer>
     )

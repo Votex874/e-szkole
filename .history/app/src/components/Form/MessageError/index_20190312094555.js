@@ -35,23 +35,21 @@ const CancelButton = styled.div`
   right: 0;
   font-weight: bold;
   font-size: 140%;
-  color: red;
+  color: ${lightBlue};
   margin: 10px 10px 0 0;
-  transition: .2s;
-  cursor: pointer;
-  @media (min-width: 1400px){
-    &:hover{
-      color: ${lightBlue}
-    }
-  }
 `
 
 class MessageError extends Component{
   constructor(props){
     super(props)
+
     this.state = {
-      style: {},
-      itemColor: {}
+      style: {
+        
+      },
+      itemColor: {
+        
+      }
     }
   }
 
@@ -73,29 +71,13 @@ class MessageError extends Component{
     }, 4500)
   }
 
-  handleUnMount = () => {
-    this.setState({
-      style: {
-        opacity: '0'
-      },
-      itemColor: {
-        color: '#fff'
-      }
-    })
-    setTimeout(() => {
-      if (typeof this.props.onLoad === 'function') {
-        this.props.onLoad()
-      }
-    }, 500)
-  }
-
   render () {
     const { content } = this.props
     const { style, itemColor } = this.state
     return (
       <ErrorContainer style={style}>
         <Title>Niestety nie udalo się wysłać pytania</Title>
-        <CancelButton onClick={this.handleUnMount}>X</CancelButton>
+        <CancelButton>X</CancelButton>
         {content.map((e,i) => {
           return <ErrorItem style={itemColor} key={i}>- {e}</ErrorItem>
         })}
