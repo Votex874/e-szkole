@@ -63,7 +63,7 @@ class MessageSuccess extends Component {
       })
     }, 4500)
     if (!(typeof this.props.onLoad === 'function')) {
-      clearTimeout(idTimeoutUnMount)
+      clearTimeout(idTimeoutUnMout)
       clearTimeout(idTimeoutAddingStyles)
     }
   }

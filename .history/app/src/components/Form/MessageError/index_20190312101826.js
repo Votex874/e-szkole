@@ -2,15 +2,14 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 import { lightBlue } from '../../../constColors'
 
-const SuccessContainer = styled.div`
+const ErrorContainer = styled.div`
   width: 400px;
   margin: 25px auto 10px auto;
-  border-bottom: 5px solid #54F1B4;
+  border-bottom: 5px solid red;
   box-sizing: border-box;
   background-color: #fff;
   border-radius: 5px;
   padding: 20px 10px;
-  text-align: center;
   transition: .5s;
   position: relative;
   @media (max-width: 767px){
@@ -19,13 +18,24 @@ const SuccessContainer = styled.div`
   }
 `
 
+const ErrorItem = styled.p`
+  margin: 5px 0;
+`
+
+const Title = styled.h3`
+  font-size: 115%;
+  margin-bottom: 15px;
+  color: red;
+  font-weight: bold;
+`
+
 const CancelButton = styled.div`
   position: absolute;
   top: 0;
   right: 0;
   font-weight: bold;
   font-size: 140%;
-  color: #54F1B4;
+  color: red;
   margin: 10px 10px 0 0;
   transition: .2s;
   cursor: pointer;
@@ -36,34 +46,31 @@ const CancelButton = styled.div`
   }
 `
 
-const TextContainer = styled.p`
-
-`
-
-class MessageSuccess extends Component {
+class MessageError extends Component{
   constructor(props){
     super(props)
-
     this.state = {
-      style: {
-        height: "auto",
-      }
+      style: {},
+      itemColor: {}
     }
   }
 
   componentDidMount = () => {
-    const idTimeoutUnMount = setTimeout(() => {
-      this.props.onLoad()
+    const idTimeoutUnMout = setTimeout(() => {
+       this.props.onLoad();
     }, 5000)
     const idTimeoutAddingStyles = setTimeout(() => {
       this.setState({
         style: {
-          opacity: '0'
+          opacity: '0'          
+        },
+        itemColor: {
+          color: '#fff'
         }
       })
     }, 4500)
     if (!(typeof this.props.onLoad === 'function')) {
-      clearTimeout(idTimeoutUnMount)
+      clearTimeout(idTimeoutUnMout)
       clearTimeout(idTimeoutAddingStyles)
     }
   }
@@ -77,22 +84,26 @@ class MessageSuccess extends Component {
         color: '#fff'
       }
     })
-    const unMoutTimeout = setTimeout(() => {
-      this.props.onLoad()
+    setTimeout(() => {
+      if (typeof this.props.onLoad === 'function') {
+        this.props.onLoad()
+      }
     }, 500)
-    if(!(typeof this.props.onLoad === 'function')){
-      clearTimeout(unMoutTimeout)
-    }
   }
 
-  render() {
+  render () {
+    const { content } = this.props
+    const { style, itemColor } = this.state
     return (
-      <SuccessContainer style={this.state.style}>
+      <ErrorContainer style={style}>
+        <Title>Niestety nie udalo się wysłać pytania</Title>
         <CancelButton onClick={this.handleUnMount}>X</CancelButton>
-        <TextContainer>{this.props.content}</TextContainer>
-      </SuccessContainer>
+        {content.map((e,i) => {
+          return <ErrorItem style={itemColor} key={i}>- {e}</ErrorItem>
+        })}
+      </ErrorContainer>
     )
   }
 }
 
-export default MessageSuccess
+export default MessageError

@@ -21,7 +21,6 @@ class App extends Component {
           <Route path='/blog' component={News} />
           <Route path='/o-nas' component={About} />
           <Route path='/rekrutacja' component={Recruitment} />
-          <Route path='/panel' component={Panel} />
         </Switch>
       </BrowserRouter>
     );
