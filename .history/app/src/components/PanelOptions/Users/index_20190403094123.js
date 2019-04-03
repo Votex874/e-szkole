@@ -27,6 +27,7 @@ const UserItem = styled.li`
   margin: 10px 0;
   display: flex;
   flex-direction: column;
+  transition: .2s;
 `
 
 const Icons = styled.div`
@@ -52,14 +53,17 @@ const Id = styled.p`
 `
 
 const MoreInfo = styled.p`
-	height: 0px;
-  visibility: hidden;
-  transition: .5s;
-  width: 0px;
+  overflow-y: hidden;
+	max-height: 500px; /* approximate max height */
+
+	transition-property: all;
+	transition-duration: .5s;
+	transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
 `
 
 const Container = styled.div`
   display: flex;
+
 `
 
 const UserName = styled.span`
@@ -98,7 +102,6 @@ class Users extends Component{
             <Id>{i + 1}.</Id>
             <UserName>{e}</UserName>
             <Icons><Img src={Trash} /> <Img onClick={() => this.handleShowMoreInfo(i, e)} src={ArrowShow} /></Icons>
-            <MoreInfo>3213213</MoreInfo>
           </Container>
         </UserItem>
       )
@@ -118,33 +121,12 @@ class Users extends Component{
         <UserName>{name}</UserName>
         <Icons><Img src={Trash} /> <Img onClick={() => this.handleHideMoreInfo(id, name)} src={ArrowHide} /></Icons>
       </Container>
-      <MoreInfo>3213213</MoreInfo>
+      <MoreInfo style={{ maxHeight: 0 }}>3213213</MoreInfo>
     </UserItem>
 
     this.setState({
       usersArray: arrayHandler
     })
-
-    const styleSlideUp = {
-      height: 200,
-      visibility: "visible", 
-      width: 'auto'
-    }
-
-    const time = setTimeout(() => {
-      console.log('po 500ms')
-      arrayHandler[id] = <UserItem key={id}>
-        <Container>
-          <Id>{id + 1}.</Id>
-          <UserName>{name}</UserName>
-          <Icons><Img src={Trash} /> <Img onClick={() => this.handleHideMoreInfo(id, name)} src={ArrowHide} /></Icons>
-        </Container>
-        <MoreInfo style={ styleSlideUp }>3213213</MoreInfo>
-      </UserItem>
-      this.setState({
-        usersArray: arrayHandler
-      })
-    }, 100)
   }
 
   handleHideMoreInfo = (id, name) => {
@@ -156,7 +138,6 @@ class Users extends Component{
         <Id>{id + 1}.</Id>
         <UserName>{name}</UserName>
         <Icons><Img src={Trash} /> <Img onClick={() => this.handleShowMoreInfo(id, name)} src={ArrowShow} /></Icons>
-        <MoreInfo>3213213</MoreInfo>
       </Container>
     </UserItem>
 

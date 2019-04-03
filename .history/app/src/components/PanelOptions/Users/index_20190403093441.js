@@ -26,7 +26,6 @@ const UserItem = styled.li`
   padding-bottom: 4px;
   margin: 10px 0;
   display: flex;
-  flex-direction: column;
 `
 
 const Icons = styled.div`
@@ -49,17 +48,6 @@ const Id = styled.p`
   border-right: 1px solid ${lightBlue};
   padding: 0 5px;
   margin-right: 5px;
-`
-
-const MoreInfo = styled.p`
-	height: 0px;
-  visibility: hidden;
-  transition: .5s;
-  width: 0px;
-`
-
-const Container = styled.div`
-  display: flex;
 `
 
 const UserName = styled.span`
@@ -94,12 +82,9 @@ class Users extends Component{
     const usersList = users.map((e, i) => {
       return (
         <UserItem key={i}>
-          <Container>
-            <Id>{i + 1}.</Id>
-            <UserName>{e}</UserName>
-            <Icons><Img src={Trash} /> <Img onClick={() => this.handleShowMoreInfo(i, e)} src={ArrowShow} /></Icons>
-            <MoreInfo>3213213</MoreInfo>
-          </Container>
+          <Id>{i + 1}.</Id>
+          <UserName>{e}</UserName>
+          <Icons><Img src={Trash} /> <Img onClick={() => this.handleShowMoreInfo(i, e)} src={ArrowShow} /></Icons>
         </UserItem>
       )
     })
@@ -113,38 +98,15 @@ class Users extends Component{
     const arrayHandler = [...usersArray];
     console.log('klikam handleShowMoreInfo')
     arrayHandler[id] = <UserItem key={id}>
-      <Container>
-        <Id>{id + 1}.</Id>
-        <UserName>{name}</UserName>
-        <Icons><Img src={Trash} /> <Img onClick={() => this.handleHideMoreInfo(id, name)} src={ArrowHide} /></Icons>
-      </Container>
-      <MoreInfo>3213213</MoreInfo>
+      <Id>{id + 1}.</Id>
+      <UserName>{name}</UserName>
+      <Icons><Img src={Trash} /> <Img onClick={() => this.handleHideMoreInfo(id, name)} src={ArrowHide} /></Icons>
+      <p>2133333333333333333333333333333333333333333312</p>
     </UserItem>
 
     this.setState({
       usersArray: arrayHandler
     })
-
-    const styleSlideUp = {
-      height: 200,
-      visibility: "visible", 
-      width: 'auto'
-    }
-
-    const time = setTimeout(() => {
-      console.log('po 500ms')
-      arrayHandler[id] = <UserItem key={id}>
-        <Container>
-          <Id>{id + 1}.</Id>
-          <UserName>{name}</UserName>
-          <Icons><Img src={Trash} /> <Img onClick={() => this.handleHideMoreInfo(id, name)} src={ArrowHide} /></Icons>
-        </Container>
-        <MoreInfo style={ styleSlideUp }>3213213</MoreInfo>
-      </UserItem>
-      this.setState({
-        usersArray: arrayHandler
-      })
-    }, 100)
   }
 
   handleHideMoreInfo = (id, name) => {
@@ -152,12 +114,9 @@ class Users extends Component{
     const arrayHandler = [...usersArray];
     console.log('klikam handleHideMoreInfo')
     arrayHandler[id] = <UserItem key={id}>
-      <Container>
-        <Id>{id + 1}.</Id>
-        <UserName>{name}</UserName>
-        <Icons><Img src={Trash} /> <Img onClick={() => this.handleShowMoreInfo(id, name)} src={ArrowShow} /></Icons>
-        <MoreInfo>3213213</MoreInfo>
-      </Container>
+      <Id>{id + 1}.</Id>
+      <UserName>{name}</UserName>
+      <Icons><Img src={Trash} /> <Img onClick={() => this.handleShowMoreInfo(id, name)} src={ArrowShow} /></Icons>
     </UserItem>
 
     this.setState({

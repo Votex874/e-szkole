@@ -144,7 +144,7 @@ class Users extends Component{
       this.setState({
         usersArray: arrayHandler
       })
-    }, 100)
+    }, 300)
   }
 
   handleHideMoreInfo = (id, name) => {

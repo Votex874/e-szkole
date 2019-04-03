@@ -52,14 +52,12 @@ const Id = styled.p`
 `
 
 const MoreInfo = styled.p`
-	height: 0px;
-  visibility: hidden;
-  transition: .5s;
-  width: 0px;
+
 `
 
 const Container = styled.div`
   display: flex;
+
 `
 
 const UserName = styled.span`
@@ -98,7 +96,6 @@ class Users extends Component{
             <Id>{i + 1}.</Id>
             <UserName>{e}</UserName>
             <Icons><Img src={Trash} /> <Img onClick={() => this.handleShowMoreInfo(i, e)} src={ArrowShow} /></Icons>
-            <MoreInfo>3213213</MoreInfo>
           </Container>
         </UserItem>
       )
@@ -124,27 +121,6 @@ class Users extends Component{
     this.setState({
       usersArray: arrayHandler
     })
-
-    const styleSlideUp = {
-      height: 200,
-      visibility: "visible", 
-      width: 'auto'
-    }
-
-    const time = setTimeout(() => {
-      console.log('po 500ms')
-      arrayHandler[id] = <UserItem key={id}>
-        <Container>
-          <Id>{id + 1}.</Id>
-          <UserName>{name}</UserName>
-          <Icons><Img src={Trash} /> <Img onClick={() => this.handleHideMoreInfo(id, name)} src={ArrowHide} /></Icons>
-        </Container>
-        <MoreInfo style={ styleSlideUp }>3213213</MoreInfo>
-      </UserItem>
-      this.setState({
-        usersArray: arrayHandler
-      })
-    }, 100)
   }
 
   handleHideMoreInfo = (id, name) => {
@@ -156,7 +132,6 @@ class Users extends Component{
         <Id>{id + 1}.</Id>
         <UserName>{name}</UserName>
         <Icons><Img src={Trash} /> <Img onClick={() => this.handleShowMoreInfo(id, name)} src={ArrowShow} /></Icons>
-        <MoreInfo>3213213</MoreInfo>
       </Container>
     </UserItem>
 

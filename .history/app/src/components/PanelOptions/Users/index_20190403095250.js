@@ -125,12 +125,6 @@ class Users extends Component{
       usersArray: arrayHandler
     })
 
-    const styleSlideUp = {
-      height: 200,
-      visibility: "visible", 
-      width: 'auto'
-    }
-
     const time = setTimeout(() => {
       console.log('po 500ms')
       arrayHandler[id] = <UserItem key={id}>
@@ -139,12 +133,12 @@ class Users extends Component{
           <UserName>{name}</UserName>
           <Icons><Img src={Trash} /> <Img onClick={() => this.handleHideMoreInfo(id, name)} src={ArrowHide} /></Icons>
         </Container>
-        <MoreInfo style={ styleSlideUp }>3213213</MoreInfo>
+        <MoreInfo style={{ height: 200, visibility: "visible", width: 'auto' }}>3213213</MoreInfo>
       </UserItem>
       this.setState({
         usersArray: arrayHandler
       })
-    }, 100)
+    }, 500)
   }
 
   handleHideMoreInfo = (id, name) => {
