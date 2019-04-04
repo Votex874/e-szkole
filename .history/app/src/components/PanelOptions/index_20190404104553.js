@@ -25,8 +25,8 @@ const OptionsList = styled.ul`
 const ChoosenOption = styled.div`
   border: 4px solid ${lightBlue};
   border-radius: 5px;
-  margin: 0 auto 50px auto;
-  width: 1200px;
+  margin: 0 auto;
+  width: 1000px;
   @media(max-width: 767px){
     width: 90%;
   }

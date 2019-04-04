@@ -152,7 +152,7 @@ class Users extends Component{
 
     this.state = {
       sidebarItems: ['wszystkie dzieci', 'sześciolatki', 'pięciolatki', 'czterolatki', 'trzylatki'],
-      users: ['Tomek', 'patryk', 'kulep', 'akropol', 'tomek', 'patryk', 'kulep', 'akropol'],
+      users: ['tomek', 'patryk', 'kulep', 'akropol', 'tomek', 'patryk', 'kulep', 'akropol'],
       usersArray: []
     }
   }

@@ -10,20 +10,16 @@ import Trash from '../../../images/icons/trash.png'
 const Title = styled.h2`
   text-transform: uppercase;
   font-size: 120%;
-  margin: 20px 0 0 0;
-  padding-bottom: 20px;
+  margin: 10px 0 0 0;
+  padding-bottom: 10px;
   border-bottom: 2px dotted ${lightBlue};
   text-align: center;
   @media(max-width: 767px){
     font-size: 90%;
     border-bottom: none;
-    margin: 10px 0 0 0;
-    padding-bottom: 10px;
   }
   @media (min-width: 768px) and (max-width: 1399px){
     font-size: 100%;
-    margin: 10px 0 0 0;
-    padding-bottom: 10px;
   }
 `
 
@@ -152,7 +148,7 @@ class Users extends Component{
 
     this.state = {
       sidebarItems: ['wszystkie dzieci', 'sześciolatki', 'pięciolatki', 'czterolatki', 'trzylatki'],
-      users: ['Tomek', 'patryk', 'kulep', 'akropol', 'tomek', 'patryk', 'kulep', 'akropol'],
+      users: ['tomek', 'patryk', 'kulep', 'akropol', 'tomek', 'patryk', 'kulep', 'akropol'],
       usersArray: []
     }
   }
