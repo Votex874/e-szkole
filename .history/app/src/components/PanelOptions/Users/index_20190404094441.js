@@ -26,14 +26,8 @@ const Title = styled.h2`
 
 const UsersList = styled.ul`
   padding-left: 10px;
-  border-left: 2px solid ${lightBlue};
-  margin: 10px auto;
-  width: 80%;
   @media (max-width: 767px){
     padding: 0;
-    margin: 0;
-    width: auto;
-    border-left: 0;
   }
 `
 
@@ -45,12 +39,6 @@ const UserItem = styled.li`
   flex-direction: column;
   @media (min-width: 768px) and (max-width: 1399px){
     margin: 20px 0;
-  }
-  &:first-of-type{
-    margin-top: 0;
-  }
-  &:last-of-type{
-    margin-bottom: 0;
   }
 `
 
@@ -110,14 +98,14 @@ const SidebarMenu = styled.div`
   flex-wrap: wrap;
   flex-direction: column;
   margin: 10px 0;
-  max-height: 200px;
-  width: 200px;
   @media (max-width: 767px){
     border-top: 2px dotted ${lightBlue};
     border-bottom: 2px dotted ${lightBlue};
     padding: 10px 0;
     flex-direction: row;
-    width: auto;
+  }
+  @media (min-width: 768px) and (max-width: 1399px){
+    border-right: 2px solid ${lightBlue};
   }
 `
 
@@ -127,7 +115,7 @@ class Users extends Component{
 
     this.state = {
       sidebarItems: ['wszystkie dzieci', 'sześciolatki', 'pięciolatki', 'czterolatki', 'trzylatki'],
-      users: ['tomek', 'patryk', 'kulep', 'akropol', 'tomek', 'patryk', 'kulep', 'akropol'],
+      users: ['tomek', 'patryk', 'kulep', 'akropol'],
       usersArray: []
     }
   }

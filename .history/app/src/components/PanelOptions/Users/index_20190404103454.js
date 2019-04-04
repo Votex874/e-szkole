@@ -33,7 +33,6 @@ const UsersList = styled.ul`
     padding: 0;
     margin: 0;
     width: auto;
-    border-left: 0;
   }
 `
 

@@ -29,10 +29,6 @@ const ChoosenOption = styled.div`
   @media(max-width: 767px){
     width: 90%;
   }
-  @media (min-width: 768px) and (max-width: 1399px){
-    width: 94%;
-    margin: 0 auto;
-  }
 `
 
 class PanelOptions extends Component{

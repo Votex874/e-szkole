@@ -28,12 +28,11 @@ const UsersList = styled.ul`
   padding-left: 10px;
   border-left: 2px solid ${lightBlue};
   margin: 10px auto;
-  width: 80%;
+  max-width: 90%;
+  
   @media (max-width: 767px){
     padding: 0;
     margin: 0;
-    width: auto;
-    border-left: 0;
   }
 `
 

@@ -10,31 +10,20 @@ import Trash from '../../../images/icons/trash.png'
 const Title = styled.h2`
   text-transform: uppercase;
   font-size: 120%;
-  margin: 10px 0 0 0;
-  padding-bottom: 10px;
-  border-bottom: 2px dotted ${lightBlue};
+  margin: 10px 0 10px 0;
   @media(max-width: 767px){
     font-size: 90%;
     text-align: center;
-    border-bottom: none;
   }
   @media (min-width: 768px) and (max-width: 1399px){
     font-size: 100%;
     text-align: center;
   }
+
 `
 
 const UsersList = styled.ul`
-  padding-left: 10px;
-  border-left: 2px solid ${lightBlue};
-  margin: 10px auto;
-  width: 80%;
-  @media (max-width: 767px){
-    padding: 0;
-    margin: 0;
-    width: auto;
-    border-left: 0;
-  }
+
 `
 
 const UserItem = styled.li`
@@ -45,12 +34,6 @@ const UserItem = styled.li`
   flex-direction: column;
   @media (min-width: 768px) and (max-width: 1399px){
     margin: 20px 0;
-  }
-  &:first-of-type{
-    margin-top: 0;
-  }
-  &:last-of-type{
-    margin-bottom: 0;
   }
 `
 
@@ -94,9 +77,8 @@ const ContainerUserInfo = styled.div`
 `
 const MainContainer = styled.div`
   display: flex;
-  flex-direction: row;
-  @media (max-width: 767px){
-    flex-direction: column;
+  @media (min-width: 768px) and (max-width: 1399px){
+
   }
 `
 
@@ -105,19 +87,19 @@ const UserName = styled.span`
 
 const SidebarMenu = styled.div`
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  flex-direction: column;
   margin: 10px 0;
-  max-height: 200px;
-  width: 200px;
   @media (max-width: 767px){
     border-top: 2px dotted ${lightBlue};
     border-bottom: 2px dotted ${lightBlue};
     padding: 10px 0;
-    flex-direction: row;
-    width: auto;
+  }
+  @media (min-width: 768px) and (max-width: 1399px){
+    border-top: 2px dotted ${lightBlue};
+    border-bottom: 2px dotted ${lightBlue};
+    padding: 20px 0;
   }
 `
 
@@ -127,7 +109,7 @@ class Users extends Component{
 
     this.state = {
       sidebarItems: ['wszystkie dzieci', 'sześciolatki', 'pięciolatki', 'czterolatki', 'trzylatki'],
-      users: ['tomek', 'patryk', 'kulep', 'akropol', 'tomek', 'patryk', 'kulep', 'akropol'],
+      users: ['tomek', 'patryk', 'kulep', 'akropol'],
       usersArray: []
     }
   }

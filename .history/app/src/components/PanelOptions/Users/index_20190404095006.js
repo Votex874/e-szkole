@@ -27,13 +27,10 @@ const Title = styled.h2`
 const UsersList = styled.ul`
   padding-left: 10px;
   border-left: 2px solid ${lightBlue};
-  margin: 10px auto;
-  width: 80%;
+  margin: 10px 0;
   @media (max-width: 767px){
     padding: 0;
     margin: 0;
-    width: auto;
-    border-left: 0;
   }
 `
 
@@ -46,7 +43,7 @@ const UserItem = styled.li`
   @media (min-width: 768px) and (max-width: 1399px){
     margin: 20px 0;
   }
-  &:first-of-type{
+  &:nth-of-type(1){
     margin-top: 0;
   }
   &:last-of-type{
@@ -111,13 +108,11 @@ const SidebarMenu = styled.div`
   flex-direction: column;
   margin: 10px 0;
   max-height: 200px;
-  width: 200px;
   @media (max-width: 767px){
     border-top: 2px dotted ${lightBlue};
     border-bottom: 2px dotted ${lightBlue};
     padding: 10px 0;
     flex-direction: row;
-    width: auto;
   }
 `
 

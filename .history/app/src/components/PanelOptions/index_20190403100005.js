@@ -29,10 +29,6 @@ const ChoosenOption = styled.div`
   @media(max-width: 767px){
     width: 90%;
   }
-  @media (min-width: 768px) and (max-width: 1399px){
-    width: 94%;
-    margin: 0 auto;
-  }
 `
 
 class PanelOptions extends Component{
@@ -53,11 +49,7 @@ class PanelOptions extends Component{
     return (
       <React.Fragment>
         <SectionTitle title="Panel Zarządzania" img={TaskImg} />
-        <OptionsList>
-          {this.state.list.map((e,i) => {
-            return <PanelItem id={i} handleClick={this.handleClick} key={i} content={e} />
-          })}
-        </OptionsList>
+        
         <ChoosenOption>
           {this.state.users}
         </ChoosenOption>

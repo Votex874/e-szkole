@@ -32,8 +32,6 @@ const UsersList = styled.ul`
   @media (max-width: 767px){
     padding: 0;
     margin: 0;
-    width: auto;
-    border-left: 0;
   }
 `
 
@@ -111,13 +109,11 @@ const SidebarMenu = styled.div`
   flex-direction: column;
   margin: 10px 0;
   max-height: 200px;
-  width: 200px;
   @media (max-width: 767px){
     border-top: 2px dotted ${lightBlue};
     border-bottom: 2px dotted ${lightBlue};
     padding: 10px 0;
     flex-direction: row;
-    width: auto;
   }
 `
 
