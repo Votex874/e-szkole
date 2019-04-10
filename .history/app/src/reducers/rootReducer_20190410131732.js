@@ -4,8 +4,7 @@ const fetchUsers = async () => {
       return res.json()
     })
     .then(res => {
-      console.log(res)
-      return JSON.stringify(res)
+      return res
     })
 }
 

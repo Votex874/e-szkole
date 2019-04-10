@@ -3,10 +3,6 @@ const fetchUsers = async () => {
     .then(res => {
       return res.json()
     })
-    .then(res => {
-      console.log(res)
-      return JSON.stringify(res)
-    })
 }
 
 const initState = {

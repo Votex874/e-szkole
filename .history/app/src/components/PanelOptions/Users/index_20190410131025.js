@@ -255,9 +255,9 @@ class Users extends Component{
   }
 }
 
-const mapStateToProps = ({ users }) => {
+const mapStateToProps = (state) => {
   return {
-    users
+    state
   }
 }
 

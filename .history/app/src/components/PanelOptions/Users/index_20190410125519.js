@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
-import { connect } from 'react-redux'
 import { lightBlue } from '../../../constColors';
 
 import SidebarMenuItem from '../Item/index'
@@ -45,7 +44,7 @@ const UsersList = styled.ul`
 const UserItem = styled.li`
   border-bottom: 1px solid ${lightBlue};
   padding-bottom: 4px;
-  margin: 16px 0;
+  margin: 10px 0;
   display: flex;
   flex-direction: column;
   @media (min-width: 768px) and (max-width: 1399px){
@@ -61,8 +60,8 @@ const UserItem = styled.li`
 
 const Icons = styled.div`
   cursor: pointer;
-  width: 20px;
-  height: 25px;
+  width: 25px;
+  height: 30px;
   display: flex;
   margin: 0 45px 0 auto;
   @media (max-width: 767px){        
@@ -236,7 +235,6 @@ class Users extends Component{
 
   render(){
     const { sidebarItems, usersArray } = this.state
-    console.log(this.props.state)
     return (
       <React.Fragment>
         <Title>Zarządzaj członkami przedszkola</Title>
@@ -255,10 +253,4 @@ class Users extends Component{
   }
 }
 
-const mapStateToProps = ({ users }) => {
-  return {
-    users
-  }
-}
-
-export default connect(mapStateToProps)(Users)
+export default Users

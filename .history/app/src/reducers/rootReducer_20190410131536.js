@@ -1,10 +1,9 @@
 const fetchUsers = async () => {
-   await fetch('http://localhost:5000/api/users')
+  await fetch('http://localhost:5000/api/users')
     .then(res => {
       return res.json()
     })
     .then(res => {
-      console.log(res)
       return JSON.stringify(res)
     })
 }
@@ -174,7 +173,7 @@ const initState = {
   
 }
 
-console.log(initState)
+
 
 const rootReducer = (state = initState, action) => {
   return state

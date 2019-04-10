@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
-import { connect } from 'react-redux'
 import { lightBlue } from '../../../constColors';
 
 import SidebarMenuItem from '../Item/index'
@@ -236,7 +235,6 @@ class Users extends Component{
 
   render(){
     const { sidebarItems, usersArray } = this.state
-    console.log(this.props.state)
     return (
       <React.Fragment>
         <Title>Zarządzaj członkami przedszkola</Title>
@@ -255,10 +253,4 @@ class Users extends Component{
   }
 }
 
-const mapStateToProps = ({ users }) => {
-  return {
-    users
-  }
-}
-
-export default connect(mapStateToProps)(Users)
+export default Users

@@ -4,7 +4,6 @@ const fetchUsers = async () => {
       return res.json()
     })
     .then(res => {
-      console.log(res)
       return JSON.stringify(res)
     })
 }
@@ -174,7 +173,7 @@ const initState = {
   
 }
 
-console.log(initState)
+
 
 const rootReducer = (state = initState, action) => {
   return state

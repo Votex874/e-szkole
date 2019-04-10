@@ -1,14 +1,3 @@
-const fetchUsers = async () => {
-   await fetch('http://localhost:5000/api/users')
-    .then(res => {
-      return res.json()
-    })
-    .then(res => {
-      console.log(res)
-      return JSON.stringify(res)
-    })
-}
-
 const initState = {
   links: {
     home: {
@@ -42,7 +31,6 @@ const initState = {
       basic: 'true'
     }
   },
-  users: fetchUsers(),
   news: [
     {
       date: '24 03 2018',
@@ -174,8 +162,17 @@ const initState = {
   
 }
 
-console.log(initState)
+const fetchUsers = () => {
+  fetch('http://localhost:5000/api/users')
+  .then( res => {
+    return res.json()
+  })
+  .then( res => {
+    return console.log(JSON.stringify(res))
+  })
+}
 
+fetchUsers();
 const rootReducer = (state = initState, action) => {
   return state
 }
