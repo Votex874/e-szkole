@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const bodyParse = require('body-parser');
 const mongoose = require('mongoose');
-const mongoURI = 'mongodb://localhost/kindergarden';
+const mongoURI = 'mongodb://localhost:27017/kindergarden';
 const port =  process.env.PORT || 5000;
 
 // setting up express app
@@ -14,7 +14,7 @@ app.use(express.urlencoded({ extended: false }));
 
 // connect to mongodb
 mongoose
-  .connect(mongoURI, { useNewUrlParser: true})
+  .connect(mongoURI, { useNewUrlParser: true, useFindAndModify: false })
   .then(() => console.log(`MongoDB connected`))
   .catch(err => console.log(`something goes wrong with connecting to db ${err}`))
 
@@ -24,8 +24,9 @@ app.use(express.static('build'))
 
 // initialize routes
 app.use('/user', require('./routes/login'))
-app.use('/register', require('./routes/register'))
+app.use('/user', require('./routes/register'))
 app.use('/api', require('./routes/userRestAPI'))
+app.use('/', )
  
 // error handling middleware
 app.use( (err, req, res, next) => {

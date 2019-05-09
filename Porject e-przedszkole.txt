@@ -75,3 +75,6 @@ i dodać sekcje z nimi jeżeli pozwalają na zdj to się je dodaje jak nie to ni
 i krotko czym się zajmuja a na dole tekst o samym przedszkolu
 
 
+notes: 
+logowanie - bedzie sprawdzać czy w bazie danych jest użytkownik z takim emailem/hasle 
+rejestracja - bedzie bedziemy dodawać użytkownika do bazy danych jeżeli już ktoś z takim mailem nie istnieje 

@@ -14,7 +14,7 @@ app.use(express.urlencoded({ extended: false }));
 
 // connect to mongodb
 mongoose
-  .connect(mongoURI, { useNewUrlParser: true})
+  .connect(mongoURI, { useNewUrlParser: true, useFindAndModify: false })
   .then(() => console.log(`MongoDB connected`))
   .catch(err => console.log(`something goes wrong with connecting to db ${err}`))
 
@@ -25,7 +25,7 @@ app.use(express.static('build'))
 // initialize routes
 app.use('/user', require('./routes/login'))
 app.use('/user', require('./routes/register'))
-app.use('/api', require('./routes/userRestAPI'))
+app.use('/', require('./routes/usersAPI'))
  
 // error handling middleware
 app.use( (err, req, res, next) => {
