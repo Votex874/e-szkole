@@ -116,16 +116,29 @@ class Form extends Component {
     let listOfErrors = [];
     //validation
     listOfErrors = [...this.emailValidation(email), ...this.passwordValidation(password)]
-    const user = {
-      email,
-      password
-    }
-    if(listOfErrors.length < 1){
-      console.log(user)
-      login(user).then(res => {
-        console.log(res)
-      })
 
+    if(listOfErrors.length < 1){
+      login().then(res => {
+        res.forEach(user => {
+          if(user.email === email && user.password === password){
+            sessionStorage.clear();
+            sessionStorage.setItem(user.role, user.email)            
+            this.setState({
+              email: '',
+              password: '',
+              errors: [],
+              message: true,
+              messageText: `Gratulacje zostałeś zalogowany, jako ${user.email}`,
+              messageStatus: '#03E500'
+            })
+            setTimeout(() => {
+              this.setState({
+                message: false
+              })
+            }, 3000)
+          }
+        })
+      })
     }
 
     if(listOfErrors.length > 0){
@@ -140,19 +153,7 @@ class Form extends Component {
           message: false
         })
       }, 1000)
-    } else {
-      this.setState({
-        errors: [],
-        message: true, 
-        messageText: 'Za chwilę powinno nastąpić przekierowanie',
-        messageStatus: '#03E500'
-      })
-      setTimeout( () => {
-        this.setState({
-          message: false
-        })
-      }, 1000)
-    }
+    } 
   }
 
   render() {
