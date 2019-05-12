@@ -135,6 +135,8 @@ class Form extends Component {
               this.setState({
                 message: false
               })
+              //TODO change for correct path
+              window.location = 'http://localhost:3000/panel'
             }, 3000)
           }
         })

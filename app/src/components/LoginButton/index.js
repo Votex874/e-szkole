@@ -63,7 +63,19 @@ class LoginButton extends Component {
     super(props)
 
     this.state = {
-      loginLink: '/login'
+      loginLink: '/login',
+      borderColor: lightBlue
+    }
+  }
+
+  componentDidMount = () => {
+    console.log('mount z loginbutton')
+    const user = sessionStorage.getItem('user');
+    const admin = sessionStorage.getItem('admin');
+    if(user !== null || admin !== null){
+      this.setState({
+        borderColor: '#2EE84C'
+      })
     }
   }
 
@@ -72,10 +84,10 @@ class LoginButton extends Component {
   }
 
   render() {
-    const { loginLink } = this.state;
+    const { loginLink, borderColor } = this.state;
     return (
       <Link onClick={this.handleEnableScroll} to={loginLink} >
-        <ButtonAlink>
+        <ButtonAlink style={{ borderColor }}>
           <SpanText>zaloguj się</SpanText>
           <IconImg src={imgUser} />
         </ButtonAlink>
