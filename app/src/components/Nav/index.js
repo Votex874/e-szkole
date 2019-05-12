@@ -18,12 +18,19 @@ class Navigation extends Component {
 
   render() {
     const { links } = this.props;
+    const statusUser = sessionStorage.getItem('user') || sessionStorage.getItem('admin')
     let listOfLinks = [];
     let i = 0;
     for (const key of Object.keys(links)) {
-      // console.log(key, links[key]);
-      listOfLinks[i] = <SingleLink data={links[key]} key={key} />
-      i++;
+      if(statusUser !== null){
+        listOfLinks[i] = <SingleLink data={links[key]} key={key} />
+        i++;
+      } else {
+        if (links[key].name !== 'panel') {
+          listOfLinks[i] = <SingleLink data={links[key]} key={key} />
+          i++;
+        }
+      }
     }
     return (
       <React.Fragment>
