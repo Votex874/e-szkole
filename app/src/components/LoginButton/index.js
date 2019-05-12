@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components'
 import imgUser from '../../images/icons/loginUser.png'
+import imgGreenUser from '../../images/icons/user-green.png'
 import { shineOnHover, lightBlue } from '../../constColors'
 import { Link } from 'react-router-dom'
 
@@ -64,7 +65,8 @@ class LoginButton extends Component {
 
     this.state = {
       loginLink: '/login',
-      borderColor: lightBlue
+      color: lightBlue,
+      img: imgUser
     }
   }
 
@@ -74,7 +76,8 @@ class LoginButton extends Component {
     const admin = sessionStorage.getItem('admin');
     if(user !== null || admin !== null){
       this.setState({
-        borderColor: '#2EE84C'
+        color: '#2EE84C',
+        img: imgGreenUser
       })
     }
   }
@@ -84,12 +87,18 @@ class LoginButton extends Component {
   }
 
   render() {
-    const { loginLink, borderColor } = this.state;
+    const { loginLink, color, img } = this.state;
+    const loginStatus = sessionStorage.getItem('user') || sessionStorage.getItem('admin');
     return (
       <Link onClick={this.handleEnableScroll} to={loginLink} >
-        <ButtonAlink style={{ borderColor }}>
-          <SpanText>zaloguj się</SpanText>
-          <IconImg src={imgUser} />
+        <ButtonAlink style={{ borderColor: color }}>
+          <SpanText style={{ color }}>
+          { loginStatus !== null 
+            ? 'wyloguj się'
+            : 'zaloguj się'
+          }          
+          </SpanText>
+          <IconImg src={img} />
         </ButtonAlink>
       </Link>
     );
