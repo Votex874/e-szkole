@@ -12,6 +12,7 @@ import Panel from './containers/Panel/index'
 
 class App extends Component {
   render() {
+    const userStatus = sessionStorage.getItem('user') || sessionStorage.getItem('admin')
     return (
       <BrowserRouter>
         <Switch>
@@ -21,7 +22,10 @@ class App extends Component {
           <Route path='/blog' component={News} />
           <Route path='/o-nas' component={About} />
           <Route path='/rekrutacja' component={Recruitment} />
-          <Route path='/panel' component={Panel} />
+          { userStatus !== null 
+            ? <Route path='/panel' component={Panel} /> 
+            : null 
+          }
         </Switch>
       </BrowserRouter>
     );

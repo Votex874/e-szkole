@@ -41,7 +41,7 @@ class PanelOptions extends Component{
     super(props)
 
     this.state = {
-      list: ['użytkownicy', 'blog', 'przykład'],
+      list: ['użytkownicy', 'blog', 'przykład', 'profil'],
       users: <Users />
     }
   }

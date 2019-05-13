@@ -6,8 +6,10 @@ import { lightBlue } from '../../constColors'
 import SectionTitle from '../SectionTitle/index'
 import IconSingIn from '../../images/icons/sign-in.png'
 import UserLogged from '../../images/icons/userLogged.png'
-import ArrowRight from '../../images/icons/arrow-right.png'
 import IconSignOut from '../../images/icons/sign-out.png'
+import IconSignOutReverse from '../../images/icons/sign-out-reverse.png'
+import ArrowRight from '../../images/icons/arrow-right.png'
+import ArrowRightReverse from '../../images/icons/arrow-right-reverse.png'
 
 const Container = styled.section`
   @media (min-width: 1400px){
@@ -69,6 +71,15 @@ const Alink = styled.span`
   justify-content: center;
   align-items: center;
   margin: 10px 0;
+  cursor: pointer;
+  transition: .2s;
+  font-weight: bold;
+  @media (min-width: 1401px){
+    :hover{
+      color: ${lightBlue};
+      background-color: #fff;
+    }
+  }
 `
 
 const LinkImg = styled.img`
@@ -83,7 +94,9 @@ class LoginPanel extends Component{
 
     this.state = {
       titleIsLogOut: 'zaloguj się do panelu',
-      titleIsLogIn: 'jesteś zalogowany jako'
+      titleIsLogIn: 'jesteś zalogowany jako',
+      iconLog: IconSignOut,
+      iconPanel: ArrowRight
     }
   }
 
@@ -92,8 +105,20 @@ class LoginPanel extends Component{
     window.location = '/login'
   }
 
+  handleChangeIconLogOut = () => {
+    this.setState({
+      iconLog: IconSignOutReverse
+    })
+  }
+
+  handleChangeIconMoveToPanel = () => {
+    this.setState({
+      iconPanel: ArrowRightReverse
+    })
+  }
+
   render(){
-    const { titleIsLogOut, titleIsLogIn } = this.state;
+    const { titleIsLogOut, titleIsLogIn, iconLog, iconPanel } = this.state;
     const userStatus = sessionStorage.getItem('user') || sessionStorage.getItem('admin')
     return (
       <React.Fragment>
@@ -103,14 +128,14 @@ class LoginPanel extends Component{
             ? <Fragment>
                 <SectionTitle title={`${titleIsLogIn} ${userStatus}`} img={UserLogged} />
                 <ButtonsContainer>
-                  <Alink onClick={this.handleLogOut}>
+                  <Alink onMouseOver={this.handleChangeIconLogOut} onClick={this.handleLogOut}>
                     Wyloguj się
-                    <LinkImg src={IconSignOut} />
+                    <LinkImg src={iconLog} />
                   </Alink>
                   <Link to='/panel'>
-                    <Alink>
+                    <Alink onMouseOver={this.handleChangeIconMoveToPanel}>
                       Przejdź do panelu 
-                      <LinkImg src={ArrowRight} />
+                      <LinkImg src={iconPanel} />
                     </Alink>
                   </Link>
                 </ButtonsContainer>
