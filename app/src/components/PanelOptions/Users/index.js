@@ -238,7 +238,6 @@ class Users extends Component{
   }
 
   handleDeleteUser = id => {
-    console.log(id, 'id')
     this.props.deleteUser(id)
   }
 

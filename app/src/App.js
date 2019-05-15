@@ -9,10 +9,15 @@ import News from './containers/News/index'
 import About from './containers/About/index'
 import Recruitment from './containers/Recruitment/index'
 import Panel from './containers/Panel/index'
+import PanelUsers from './containers/Panel/Users/index'
+
+import { isAdminLogged } from './isLogged'
 
 class App extends Component {
   render() {
     const userStatus = sessionStorage.getItem('user') || sessionStorage.getItem('admin')
+    const adminStatus = isAdminLogged();
+    console.log(adminStatus)
     return (
       <BrowserRouter>
         <Switch>
@@ -23,9 +28,13 @@ class App extends Component {
           <Route path='/o-nas' component={About} />
           <Route path='/rekrutacja' component={Recruitment} />
           { userStatus !== null 
-            ? <Route path='/panel' component={Panel} /> 
+            ? <Route exact path='/panel' component={Panel} /> 
             : null 
           }
+          { adminStatus !== null
+            ? <Route exact path='/panel/uzytkownicy' component={PanelUsers} />
+            : null            
+          }  
         </Switch>
       </BrowserRouter>
     );

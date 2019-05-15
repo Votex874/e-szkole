@@ -1,11 +1,9 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
 
-import PanelItem from './PanelItem/index'
+import PanelItem from '../PanelOptions/PanelItem/index'
 import SectionTitle from '../SectionTitle'
 import TaskImg from '../../images/icons/tasks.png'
-import Users from './Users/index'
-import Profile from './Profile/index'
 import { lightBlue } from '../../constColors';
 
 const OptionsList = styled.ul`
@@ -37,12 +35,12 @@ const ChoosenOption = styled.div`
   }
 `
 
-class PanelOptions extends Component{
-  constructor(props){
+class PanelContainer extends Component {
+  constructor(props) {
     super(props)
 
     this.state = {
-      list: ['użytkownicy', 'profil', 'blog', 'galeria' ]
+      list: ['użytkownicy', 'profil', 'blog', 'galeria']
     }
   }
 
@@ -50,16 +48,16 @@ class PanelOptions extends Component{
     console.log(id, 'id')
   }
 
-  render(){
+  render() {
     const adminStatus = sessionStorage.getItem('admin')
     return (
       <React.Fragment>
         <SectionTitle title="Panel Zarządzania" img={TaskImg} />
         <OptionsList>
-          {this.state.list.map((e,i) => {
-            if(adminStatus === null){
-              if(e === 'użytkownicy' || e === 'blog'){
-                return 
+          {this.state.list.map((e, i) => {
+            if (adminStatus === null) {
+              if (e === 'użytkownicy' || e === 'blog') {
+                return
               } else {
                 return <PanelItem id={i} handleClick={this.handleClick} key={i} content={e} />
               }
@@ -69,11 +67,11 @@ class PanelOptions extends Component{
           })}
         </OptionsList>
         <ChoosenOption>
-          <Profile />
+          {this.props.component}
         </ChoosenOption>
       </React.Fragment>
     )
   }
 }
 
-export default PanelOptions
+export default PanelContainer
