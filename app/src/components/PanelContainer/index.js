@@ -40,7 +40,24 @@ class PanelContainer extends Component {
     super(props)
 
     this.state = {
-      list: ['użytkownicy', 'profil', 'blog', 'galeria']
+      list: [
+        {
+          name: 'profil',
+          path: '/panel'
+        },
+        {
+          name: 'uzytkownicy',
+          path: '/panel/uzytkownicy'
+        },
+        {
+          name: 'blog',
+          path: '/panel/blog'
+        },
+        {
+          name: 'galeria',
+          path: '/panel/galeria'
+        },
+      ]
     }
   }
 
@@ -56,7 +73,7 @@ class PanelContainer extends Component {
         <OptionsList>
           {this.state.list.map((e, i) => {
             if (adminStatus === null) {
-              if (e === 'użytkownicy' || e === 'blog') {
+              if (e.name === 'użytkownicy' || e === 'blog') {
                 return
               } else {
                 return <PanelItem id={i} handleClick={this.handleClick} key={i} content={e} />

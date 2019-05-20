@@ -10,7 +10,9 @@ const Item = styled.p`
 
 const SidebarMenuItem = ({ content }) => {
   return (
-    <Item>{content}</Item>
+    <Item>
+      {content}
+    </Item>
   )
 }
 

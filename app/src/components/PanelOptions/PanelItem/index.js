@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
 
+import { Link } from 'react-router-dom'
 import { lightBlue } from '../../../constColors'
 
 const SingleItem = styled.li`
@@ -22,6 +23,16 @@ const SingleItem = styled.li`
   }
 `
 
+const Alink = styled.p`
+  text-decoration: none;
+  color: ${lightBlue};
+  @media(min-width: 1400px){
+    &:hover{
+      color: #fff;
+    }
+  }
+`
+
 class PanelItem extends Component{
 
   handleClick = (id) => {
@@ -33,9 +44,11 @@ class PanelItem extends Component{
   render(){
     const { content, id } = this.props
     return (
-      <React.Fragment>
-        <SingleItem onClick={() => this.handleClick(id)}>{content}</SingleItem>
-      </React.Fragment>
+        <Link to={content.path}>
+          <SingleItem onClick={() => this.handleClick(id)}> 
+            {content.name}
+          </SingleItem>
+        </Link>
     )
   }
 }
