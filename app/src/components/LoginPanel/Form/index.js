@@ -129,7 +129,7 @@ class Form extends Component {
               errors: [],
               message: true,
               messageText: `Gratulacje zostałeś zalogowany, jako ${user.email}`,
-              messageStatus: '#03E500'
+              messageStatus: '#2EE84C'
             })
             setTimeout(() => {
               this.setState({
@@ -138,10 +138,24 @@ class Form extends Component {
               //TODO change for correct path
               window.location = 'http://localhost:3000/panel'
             }, 3000)
+          } else {
+            this.setState({
+              email: '',
+              password: '',
+              errors: [],
+              message: true,
+              messageText: `Przepraszamy ,ale użytkownik: ${email} nie istnieje.`,
+              messageStatus: '#E51300'
+            })
+            setTimeout(() => {
+              this.setState({
+                message: false
+              })
+            }, 3000)
           }
         })
       })
-    }
+    } 
 
     if(listOfErrors.length > 0){
       this.setState({
@@ -166,13 +180,13 @@ class Form extends Component {
         {errors.map( (e,i) => {
           return <ErrorItem name={e} key={i} />
         })}
+        <LabelField>
+        <InputField type="email" name="email" placeholder="podaj swój e-mail" onChange={this.handleChangeEmail} value={email}/>
+        </LabelField>
+        <LabelField>
+        <InputField type="password" name="password" placeholder="podaj swóje hasło" onChange={this.handleChangePassword} value={password}/>
+        </LabelField>
         {message ? <Message show='flex' text={messageText} status={messageStatus} /> : null}
-        <LabelField>
-          <InputField type="email" name="email" placeholder="podaj swój e-mail" onChange={this.handleChangeEmail} value={email}/>
-        </LabelField>
-        <LabelField>
-          <InputField type="password" name="password" placeholder="podaj swóje hasło" onChange={this.handleChangePassword} value={password}/>
-        </LabelField>
         <LabelButton>
           <InputButton type="submit" name="submit" value="zaloguj sie"/>
         </LabelButton>

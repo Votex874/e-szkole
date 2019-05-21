@@ -4,10 +4,12 @@ import { connect } from 'react-redux'
 import { lightBlue } from '../../../constColors';
 import { fetchUsers, deleteUser } from '../../../reducers/actions/usersActions'
 
+import MoreInformation from './MoreInfo/index'
 import SidebarMenuItem from '../Item/index'
 import ArrowHide from '../../../images/icons/arrow-hide.png'
 import ArrowShow from '../../../images/icons/arrow-show.png'
 import Trash from '../../../images/icons/trash.png'
+import { NONAME } from 'dns';
 
 const Title = styled.h2`
   text-transform: uppercase;
@@ -101,7 +103,7 @@ const Id = styled.p`
   }
 `
 
-const MoreInfo = styled.p`
+const MoreInfo = styled.div`
 	height: 0px;
   visibility: hidden;
   transition: .5s;
@@ -173,7 +175,9 @@ class Users extends Component{
             <UserName>{e.email}</UserName>
             <Icons><Img src={Trash} onClick={() => this.handleDeleteUser(e._id)} /> <Img onClick={() => this.handleShowMoreInfo(i, e.email)} src={ArrowShow} /></Icons>
           </ContainerUserInfo>
-          <MoreInfo>3213213</MoreInfo>
+          <MoreInfo>
+            <MoreInformation />
+          </MoreInfo>
         </UserItem>)
       this.setState({
         fakeUsers: arrayHandler
@@ -191,7 +195,9 @@ class Users extends Component{
         <UserName>{email}</UserName>
         <Icons><Img src={Trash} onClick={() => this.handleDeleteUser(id)} /> <Img onClick={() => this.handleHideMoreInfo(id, email)} src={ArrowHide} /></Icons>
       </ContainerUserInfo>
-      <MoreInfo>3213213</MoreInfo>
+      <MoreInfo>
+        <MoreInformation />
+      </MoreInfo>
     </UserItem>
 
     this.setState({
@@ -199,7 +205,7 @@ class Users extends Component{
     })
 
     const styleSlideUp = {
-      height: 200,
+      height: 100,
       visibility: "visible", 
       width: 'auto'
     }
@@ -211,7 +217,9 @@ class Users extends Component{
           <UserName>{email}</UserName>
           <Icons><Img src={Trash} onClick={() => this.handleDeleteUser(id)} /> <Img onClick={() => this.handleHideMoreInfo(id, email)} src={ArrowHide} /></Icons>
         </ContainerUserInfo>
-        <MoreInfo style={ styleSlideUp }>3213213</MoreInfo>
+        <MoreInfo style={ styleSlideUp }>
+          <MoreInformation />
+        </MoreInfo>
       </UserItem>
       this.setState({
         usersArray: arrayHandler
@@ -223,13 +231,22 @@ class Users extends Component{
     const { usersArray } = this.state
     const arrayHandler = [...usersArray];
 
-    arrayHandler[id] = <UserItem key={id}>
+    const styleSlideUp = {
+      height: 0,
+      visibility: "hidden", 
+      width: 'auto',
+      opacity: '0'
+    }
+
+    arrayHandler[id] = <UserItem key={id}> 
       <ContainerUserInfo>
         <Id>{id + 1}.</Id>
         <UserName>{email}</UserName>
         <Icons><Img src={Trash} onClick={() => this.handleDeleteUser(id)} /> <Img onClick={() => this.handleShowMoreInfo(id, email)} src={ArrowShow} /></Icons>
       </ContainerUserInfo>
-      <MoreInfo>3213213</MoreInfo>
+      <MoreInfo style={styleSlideUp}>
+        <MoreInformation />
+      </MoreInfo>
     </UserItem>
 
     this.setState({
