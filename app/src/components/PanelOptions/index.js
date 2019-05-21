@@ -9,7 +9,7 @@ import Profile from './Profile/index'
 import { lightBlue } from '../../constColors';
 
 const OptionsList = styled.ul`
-  width: 1200px;
+  width: 1000px;
   margin: 0 auto;
   display: flex;
   justify-content: flex-start;
@@ -27,7 +27,7 @@ const ChoosenOption = styled.div`
   border: 4px solid ${lightBlue};
   border-radius: 5px;
   margin: 0 auto 50px auto;
-  width: 1200px;
+  width: 1000px;
   @media(max-width: 767px){
     width: 90%;
   }
