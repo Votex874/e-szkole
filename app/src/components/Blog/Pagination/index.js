@@ -91,9 +91,9 @@ class Pagination extends Component {
   }
 }
 
-const mapStateToProps = ({ news }) => {
+const mapStateToProps = ({ initialState }) => {
   return {
-    news
+    news: initialState.news
   }
 }
 

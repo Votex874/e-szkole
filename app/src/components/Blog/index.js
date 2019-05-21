@@ -6,6 +6,7 @@ import Post from './Post/index'
 import SectionTitle from '../SectionTitle/index'
 import Pagination from './Pagination/index'
 import IconNews from '../../images/icons/calendar.png'
+import initialState from './../../reducers/initialState/initialState';
 
 const BlogContainer = styled.section`
 `
@@ -60,9 +61,9 @@ class Blog extends Component {
   }
 }
 
-const mapStateToProps = ({ news }) => {
+const mapStateToProps = ({ initialState }) => {
   return {
-    news
+    news: initialState.news
   }
 }
  
