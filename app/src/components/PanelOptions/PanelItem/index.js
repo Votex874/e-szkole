@@ -11,6 +11,7 @@ const SingleItem = styled.li`
   padding: 10px;
   border: 2px solid ${lightBlue};
   border-radius: 5px;
+  transition: .2s;
   @media (max-width: 767px){
     font-size: 12px;
     padding: 5px;
@@ -23,13 +24,19 @@ const SingleItem = styled.li`
   }
 `
 
-const Alink = styled.p`
-  text-decoration: none;
-  color: ${lightBlue};
-  @media(min-width: 1400px){
-    &:hover{
-      color: #fff;
-    }
+const ActiveItem = styled.li`
+  color: #fff;
+  text-transform: uppercase;
+  margin: 5px 10px;
+  padding: 12px;
+  border-radius: 5px;
+  transition: .2s;
+  background-color: ${lightBlue};
+  font-weight: bold;
+  cursor: auto;
+  @media (max-width: 767px){
+    font-size: 12px;
+    padding: 5px;
   }
 `
 
@@ -44,11 +51,12 @@ class PanelItem extends Component{
   render(){
     const { content, id } = this.props
     return (
-        <Link to={content.path}>
-          <SingleItem onClick={() => this.handleClick(id)}> 
-            {content.name}
-          </SingleItem>
-        </Link>
+        <span >        
+        {content.mainView 
+          ? <ActiveItem>{content.name}</ActiveItem>
+          : <SingleItem onClick={() => this.handleClick(id)}>{content.name}</SingleItem>
+        }
+        </span>
     )
   }
 }

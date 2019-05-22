@@ -4,9 +4,10 @@ import styled from 'styled-components'
 import PanelItem from './PanelItem/index'
 import SectionTitle from '../SectionTitle'
 import TaskImg from '../../images/icons/tasks.png'
-import Users from './Users/index'
-import Profile from './Profile/index'
 import { lightBlue } from '../../constColors';
+import Profile from './Profile/index'
+import Users from './Users/index'
+import Blog from './Blog/index'
 
 const OptionsList = styled.ul`
   width: 1000px;
@@ -42,33 +43,55 @@ class PanelOptions extends Component{
     super(props)
 
     this.state = {
+      currentView: <Blog />,
       list: [
         { 
           name: 'profil',
-          path: '/panel'
+          component: <Profile />,
+          path: '/panel',
+          mainView: false,
+          id: 0,
         },
         { 
           name: 'użytkownicy',
-          path: '/panel/uzytkownicy'
+          component: <Users />,
+          path: '/panel/uzytkownicy',
+          mainView: false,
+          id: 1,
         },
         {
           name: 'blog',
-          path: '/panel/blog'
+          component: <Blog />,
+          path: '/panel/blog',
+          mainView: true,
+          id: 2,
         },
         { 
           name: 'galeria',
-          path: '/panel/galeria' 
+          component: <div>2</div>,
+          path: '/panel/galeria',
+          mainView: false,
+          id: 3
         },
       ]
     }
   }
 
   handleClick = (id) => {
-    console.log(id, 'id')
+    const { list } = this.state
+    const activeItem = list.find(e => e.mainView === true)
+    let newArray = [...list]
+    newArray[activeItem.id].mainView = false
+    newArray[id].mainView = true
+    this.setState({
+      list: newArray,
+      currentView: list[id].component
+    }) 
   }
 
   render(){
     const adminStatus = sessionStorage.getItem('admin')
+    const { currentView } = this.state
     return (
       <React.Fragment>
         <SectionTitle title="Panel Zarządzania" img={TaskImg} />
@@ -78,7 +101,7 @@ class PanelOptions extends Component{
               if(e.name === 'użytkownicy' || e.name === 'blog'){
                 return 
               } else {
-                return <PanelItem id={i} handleClick={this.handleClick} key={i} content={e} />
+                return <PanelItem id={i} handleClick={this.handleClick}  key={i} content={e} />
               }
             } else {
               return <PanelItem id={i} handleClick={this.handleClick} key={i} content={e} />
@@ -86,7 +109,7 @@ class PanelOptions extends Component{
           })}
         </OptionsList>
         <ChoosenOption>
-          <Profile />
+          {currentView}
         </ChoosenOption>
       </React.Fragment>
     )
