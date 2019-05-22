@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 import { lightBlue } from '../../../constColors'
 import HiddenEye from '../../../images/icons/eye-hide.png'
 import ShowedEye from '../../../images/icons/eye-show.png'
+import { isLogged } from './../../../isLogged';
 
 
 const MainHeader = styled.h3`
@@ -175,7 +176,8 @@ class Profile extends Component{
   }
 
   componentDidUpdate = () => {
-    const user = this.props.users.find(e => e.email !== user)
+    const currentUser = isLogged();
+    const user = this.props.users.find(e => e.email === currentUser)
     if(this.state.loggedUser === undefined){      
       this.setState({
         loggedUser: user,

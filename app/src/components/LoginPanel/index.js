@@ -105,16 +105,28 @@ class LoginPanel extends Component{
     window.location = '/login'
   }
 
-  handleChangeIconLogOut = () => {
-    this.setState({
-      iconLog: IconSignOutReverse
-    })
+  handleChangeIconLogOut = (status) => {
+    if (status === 'over' && window.innerWidth >= 1400){
+      this.setState({
+        iconLog: IconSignOutReverse
+      })
+    } else {
+      this.setState({
+        iconLog: IconSignOut
+      })
+    }
   }
 
-  handleChangeIconMoveToPanel = () => {
-    this.setState({
-      iconPanel: ArrowRightReverse
-    })
+  handleChangeIconMoveToPanel = (status) => {
+    if(status === 'over' && window.innerWidth >= 1400){      
+      this.setState({
+        iconPanel: ArrowRightReverse
+      })
+    } else {
+      this.setState({
+        iconPanel: ArrowRight
+      })
+    }
   }
 
   render(){
@@ -128,12 +140,12 @@ class LoginPanel extends Component{
             ? <Fragment>
                 <SectionTitle title={`${titleIsLogIn} ${userStatus}`} img={UserLogged} />
                 <ButtonsContainer>
-                  <Alink onMouseOver={this.handleChangeIconLogOut} onClick={this.handleLogOut}>
+                  <Alink onMouseOver={() => this.handleChangeIconLogOut('over')} onMouseOut={() => this.handleChangeIconLogOut('out')} onClick={this.handleLogOut}>
                     Wyloguj się
                     <LinkImg src={iconLog} />
                   </Alink>
                   <Link to='/panel'>
-                    <Alink onMouseOver={this.handleChangeIconMoveToPanel}>
+                    <Alink onMouseOver={() => this.handleChangeIconMoveToPanel('over')} onMouseOut={() => this.handleChangeIconMoveToPanel('out')}>
                       Przejdź do panelu 
                       <LinkImg src={iconPanel} />
                     </Alink>

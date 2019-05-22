@@ -119,10 +119,10 @@ class Form extends Component {
 
     if(listOfErrors.length < 1){
       login().then(res => {
-        res.forEach(user => {
-          if(user.email === email && user.password === password){
+        for(let user of res){
+          if (user.email === email && user.password === password) {
             sessionStorage.clear();
-            sessionStorage.setItem(user.role, user.email)            
+            sessionStorage.setItem(user.role, user.email)
             this.setState({
               email: '',
               password: '',
@@ -138,7 +138,8 @@ class Form extends Component {
               //TODO change for correct path
               window.location = 'http://localhost:3000/panel'
             }, 3000)
-          } else {
+            return;
+          } else if (user.email !== email || user.password !== password) {
             this.setState({
               email: '',
               password: '',
@@ -153,7 +154,7 @@ class Form extends Component {
               })
             }, 3000)
           }
-        })
+        }
       })
     } 
 
@@ -161,7 +162,7 @@ class Form extends Component {
       this.setState({
         errors: listOfErrors,
         message: true,
-        messageText: 'Niestety nie udało się zalogować, przepraszamy za problem',
+        messageText: 'Niestety nie udało się zalogować, przepraszamy za problem.',
         messageStatus: '#E51300'
       })
       setTimeout(() => {
