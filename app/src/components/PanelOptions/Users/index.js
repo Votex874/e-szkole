@@ -9,7 +9,6 @@ import SidebarMenuItem from '../Item/index'
 import ArrowHide from '../../../images/icons/arrow-hide.png'
 import ArrowShow from '../../../images/icons/arrow-show.png'
 import Trash from '../../../images/icons/trash.png'
-import { NONAME } from 'dns';
 
 const Title = styled.h2`
   text-transform: uppercase;
@@ -261,6 +260,7 @@ class Users extends Component{
   render(){
     const { sidebarItems, usersArray, fakeUsers } = this.state
     const { users } = this.props
+    console.log('sus')
     return (
       <React.Fragment>
         <Title>Zarządzaj członkami przedszkola</Title>

@@ -3,6 +3,7 @@ import styled from 'styled-components'
 
 import { connect } from "react-redux";
 import { lightBlue } from '../../../constColors'
+import { fetchPosts, deletePost } from '../../../reducers/actions/postsActions'
 
 import EditPen from '../../../images/icons/edit.png'
 import Trash from '../../../images/icons/trash.png'
@@ -66,9 +67,10 @@ const IconContainer = styled.div`
 
 const Icon = styled.img`
   margin: 0 5px;
+  cursor: pointer;
   @media(max-width: 767px){    
-    width: 12px;
-    height: 12px;
+    width: 14px;
+    height: 14px;
   }
 `
 
@@ -86,7 +88,16 @@ class Blog extends Component {
     }
   }
 
-  componentDidUpdate = () => {
+  componentWillMount = () => {
+    this.props.fetchPosts();
+  }
+
+  componentDidUpdate = (prevProps) => {
+    if(this.props.posts !== prevProps.posts){
+      console.log('cosik')
+    } else {
+      console.log('nie coisk')
+    }
     if(this.state.list.length === 0)
       this.createArrayWithPosts();
   }
@@ -100,8 +111,12 @@ class Blog extends Component {
       )
     }
 
-    const posts = [...this.props.posts].map((post, i) =>
-      <ItemOfList type="I" key={post._id}>
+    const showContent = { height: 'auto', opacity: '1', visibility: 'visible' }
+    const hideContent = { height: '0', opacity: '0', visibility: 'hidden' }
+
+    const posts = [...this.props.posts].map((post, i) => {
+      const currentItem = postsData[i].isContentVisible;
+       return <ItemOfList type="I" key={post._id}>
         <Container>
           <SubContainer>              
             <BoldText>Author: </BoldText>
@@ -116,17 +131,18 @@ class Blog extends Component {
           <BoldText>Title: </BoldText>
           <PostData>{post.title}</PostData>
         </SubContainer>
-        <SubContainer>
+         <SubContainer style={currentItem ? showContent : hideContent}>
           <BoldText>Content:</BoldText>
-          <ContentContainer>{post.content.slice(0, 30)}...</ContentContainer>
+          <ContentContainer>{post.content.slice(0, 80)}...</ContentContainer>
         </SubContainer>
         <IconContainer>
           <Icon src={EditPen}></Icon>
-          <Icon src={Trash}></Icon>
-          <Icon src={postsData[i].isContentVisible ? ArrowHide : ArrowShow} onClick={() => this.handleToggleContent(i)}></Icon>
+          <Icon src={Trash} onClick={() => this.handleDeletePost(post._id)}></Icon>
+           <Icon src={currentItem ? ArrowHide : ArrowShow} onClick={() => this.handleToggleContent(i)}></Icon>
         </IconContainer>        
       </ItemOfList>
-    )
+    })
+  
     this.setState({
       list: posts,
       postsData
@@ -144,9 +160,13 @@ class Blog extends Component {
     this.createArrayWithPosts();
   }
 
+  handleDeletePost = id => {
+    this.props.deletePost(id)
+  }
+
   render(){
     const { list } = this.state
-    console.log(this.state.postsData)
+    console.log('sus')
     return (
       <Fragment>
         <Title>wpisy: </Title>
@@ -162,4 +182,4 @@ const mapStateToProps = state => ({
   posts: state.posts.list
 })
 
-export default connect(mapStateToProps , {})(Blog)
+export default connect(mapStateToProps, { fetchPosts, deletePost })(Blog)
