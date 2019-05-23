@@ -128,7 +128,7 @@ class Form extends Component {
               password: '',
               errors: [],
               message: true,
-              messageText: `Gratulacje zostałeś zalogowany, jako ${user.email}`,
+              messageText: `Gratulacje zostałeś poprawnie zalogowany, wkrótce nastąpi przekierowanie do panelu`,
               messageStatus: '#2EE84C'
             })
             setTimeout(() => {
