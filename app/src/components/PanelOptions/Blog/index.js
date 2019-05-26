@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import { connect } from "react-redux";
 import { lightBlue } from '../../../constColors'
 import { fetchPosts, deletePost } from '../../../reducers/actions/postsActions'
+import store from '../../../reducers/store'
 
 import EditPen from '../../../images/icons/edit.png'
 import Trash from '../../../images/icons/trash.png'
@@ -88,16 +89,10 @@ class Blog extends Component {
     }
   }
 
-  componentWillMount = () => {
-    this.props.fetchPosts();
-  }
-
   componentDidUpdate = (prevProps) => {
-    if(this.props.posts !== prevProps.posts){
-      console.log('cosik')
-    } else {
-      console.log('nie coisk')
-    }
+    if(this.props.posts !== prevProps.posts)
+      this.createArrayWithPosts();
+     
     if(this.state.list.length === 0)
       this.createArrayWithPosts();
   }
@@ -166,7 +161,7 @@ class Blog extends Component {
 
   render(){
     const { list } = this.state
-    console.log('sus')
+    console.log(this.props, 'props')
     return (
       <Fragment>
         <Title>wpisy: </Title>

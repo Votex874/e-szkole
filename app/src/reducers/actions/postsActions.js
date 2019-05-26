@@ -15,9 +15,10 @@ export const deletePost = id => async dispatch => {
     method: 'DELETE'
   })
     .then(res => res.json())
-    .then(post => dispatch({
+    .then(post => {
+      dispatch({
       type: DELETE_POST,
       payload: post
-    }))
+    })})
     .catch(err => Error(err))
 }
