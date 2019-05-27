@@ -3,14 +3,16 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 import { lightBlue } from '../../../constColors'
 import { connect } from 'react-redux'
-import { editPost } from '../../../reducers/actions/postsActions'
+import { editPost, createPost } from '../../../reducers/actions/postsActions'
+import Message from './Message/index'
 
 const Title = styled.h2`
   color: #5E5E5E;
   text-align: center;
-  margin: 10px auto;
+  margin: 30px auto 20px auto;
+  font-size: 30px;
   @media(max-width: 767px){
-    font-size: 22px;
+    font-size: 26px;
     width: 90%;
   }
 `
@@ -83,7 +85,6 @@ class NewPost extends Component {
     let year = currentDate.getFullYear();
     let month = currentDate.getMonth();
     let day = currentDate.getDate();
-    
 
     this.state = {
       title: postProps ? postProps.title : '',
@@ -91,7 +92,10 @@ class NewPost extends Component {
       content: postProps ? postProps.content : '',
       _id: postProps ? postProps._id : '',
       date: postProps ? postProps.date.slice(0, 10) : `${day}/${month + 1}/${year}`,
-      currentDate: `${day}/${month + 1}/${year}`
+      currentDate: `${day}/${month + 1}/${year}`,
+      errors: [],
+      messages: [],
+      messageComponent: false
     }
   }
 
@@ -130,34 +134,47 @@ class NewPost extends Component {
     e.preventDefault();
     const { title, author, _id, date, content } = this.state
     const arrayOfError = [];
-    const data = {
-      title,
-      author,
-      date,
-      content,
-      _id
-    }
+    const messageArray = [];
     if(!(title.lenght === 0 || author.length === 0 || content.length === 0)){ 
-      if (this.props.edit){
-        this.props.editPost(data)
-        this.setState({
-          title: '',
-          author: '',
-          content: '',
-          date: this.state.currentDate,
-          _id: ''
-        })
-      } else {
-
+      if (this.props.edit){ 
+        const data = {
+          title, author, date, content, _id
+        }
+        this.props.editPost(data)    
+        messageArray.push('Post został zaktualizownay.')    
+      } else { 
+        const data = {
+          title, author, content,
+        }
+        this.props.createPost(data)
+        messageArray.push('Post został pomyślnie dodany.')    
       }
+      this.setState({
+        title: '',
+        author: '',
+        content: '',
+        date: this.state.currentDate,
+        _id: '',
+
+      })
     } else {
-      arrayOfError.push('wszystkie pola powinny zostać uzupełnione')
+      arrayOfError.push('wszystkie pola powinny zostać uzupełnione.')
+      messageArray.push('Przepraszamy, ale pola nie mogą pozostać puste.')    
     }
-    
+    this.setState({
+      messageComponent: true,
+      errors: arrayOfError,
+      messages: messageArray
+    })
+    const setTime = setTimeout(() => {
+      this.setState({
+        messageComponent: false
+      })
+    }, 2000)
   }
 
   render(){
-    const { title, author, content, date} = this.state
+    const { title, author, content, date, errors, messages, messageComponent} = this.state
     return (
       <React.Fragment>
         <Title>
@@ -180,6 +197,10 @@ class NewPost extends Component {
           <Label>Text:
             <Textarea name='content' onChange={e => this.changeInput(e)} value={content}></Textarea>
           </Label>
+          {messageComponent 
+            ? <Message errors={errors} messages={messages} />
+            : null
+          }
           <Input submit type='submit' value='Wyślij'/>
         </Form>
       </React.Fragment>
@@ -187,4 +208,4 @@ class NewPost extends Component {
   }
 }
 
-export default connect(null , { editPost })(NewPost)
+export default connect(null , { editPost, createPost })(NewPost)

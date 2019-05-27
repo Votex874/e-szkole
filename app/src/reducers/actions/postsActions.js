@@ -1,4 +1,4 @@
-import { FETCH_POSTS, DELETE_POST, EDIT_POST } from './types'
+import { FETCH_POSTS, DELETE_POST, EDIT_POST, NEW_POST } from './types'
 import postsReducer from '../postsReducer';
 
 export const fetchPosts = () => async dispatch => {
@@ -25,7 +25,6 @@ export const deletePost = id => async dispatch => {
 }
 
 export const editPost = post => async dispatch => {
-  console.log(post._id)
   await fetch(`http://localhost:5000/posts/${post._id}`, {
     method: 'PUT',
     headers: {
@@ -42,3 +41,21 @@ export const editPost = post => async dispatch => {
     })
     .catch(err => Error(err))
 }
+
+export const createPost = post => async dispatch => {
+  await fetch('http://localhost:5000/posts', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(post)
+  })
+    .then(res => res.json())
+    .then(post => {
+      dispatch({
+        type: NEW_POST,
+        payload: post
+      })
+    })
+    .catch(err => Error(err))
+} 
