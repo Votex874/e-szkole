@@ -8,6 +8,7 @@ import { lightBlue } from '../../constColors';
 import Profile from './Profile/index'
 import Users from './Users/index'
 import Blog from './Blog/index'
+import NewPost from './NewPost/index'
 
 const OptionsList = styled.ul`
   width: 1000px;
@@ -43,7 +44,7 @@ class PanelOptions extends Component{
     super(props)
 
     this.state = {
-      currentView: <Blog />,
+      currentView: <NewPost edit={false} />,
       list: [
         { 
           name: 'profil',
@@ -61,9 +62,9 @@ class PanelOptions extends Component{
         },
         {
           name: 'blog',
-          component: <Blog />,
+          component: <Blog onEditPost={this.handleEditPost} />,
           path: '/panel/blog',
-          mainView: true,
+          mainView: false,
           id: 2,
         },
         { 
@@ -73,6 +74,13 @@ class PanelOptions extends Component{
           mainView: false,
           id: 3
         },
+        {
+          name: 'nowy post',
+          component: <NewPost/>,
+          path: '/panel/nowy-post',
+          mainView: true,
+          id: 4
+        },
       ]
     }
   }
@@ -81,12 +89,25 @@ class PanelOptions extends Component{
     const { list } = this.state
     const activeItem = list.find(e => e.mainView === true)
     let newArray = [...list]
+    newArray[4].component = <NewPost edit={false} />
     newArray[activeItem.id].mainView = false
     newArray[id].mainView = true
     this.setState({
       list: newArray,
       currentView: list[id].component
     }) 
+  }
+
+  handleEditPost = (post) => {
+    let list = [...this.state.list]
+    const newPostWithData = <NewPost edit={true} post={post} />
+    list[4].component = newPostWithData;
+    list[2].mainView = false;
+    list[4].mainView = true;
+    this.setState({
+      currentView: newPostWithData,
+      list: list
+    })
   }
 
   render(){

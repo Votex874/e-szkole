@@ -71,7 +71,6 @@ class LoginButton extends Component {
   }
 
   componentDidMount = () => {
-    console.log('mount z loginbutton')
     const user = sessionStorage.getItem('user');
     const admin = sessionStorage.getItem('admin');
     if(user !== null || admin !== null){

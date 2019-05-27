@@ -30,7 +30,7 @@ class App extends Component {
           { userStatus !== null 
             ? <Route exact path='/panel' component={Panel} /> 
             : null 
-          } 
+          }
         </Switch>
       </BrowserRouter>
     );

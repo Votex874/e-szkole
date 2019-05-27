@@ -89,6 +89,10 @@ class Blog extends Component {
     }
   }
 
+  componentDidMount = () => {
+    this.props.fetchPosts();
+  }
+
   componentDidUpdate = (prevProps) => {
     if(this.props.posts !== prevProps.posts)
       this.createArrayWithPosts();
@@ -126,12 +130,12 @@ class Blog extends Component {
           <BoldText>Title: </BoldText>
           <PostData>{post.title}</PostData>
         </SubContainer>
-         <SubContainer style={currentItem ? showContent : hideContent}>
+        <SubContainer style={currentItem ? showContent : hideContent}>
           <BoldText>Content:</BoldText>
           <ContentContainer>{post.content.slice(0, 80)}...</ContentContainer>
         </SubContainer>
         <IconContainer>
-          <Icon src={EditPen}></Icon>
+          <Icon src={EditPen} onClick={() => this.handleEditPost(post)}></Icon>
           <Icon src={Trash} onClick={() => this.handleDeletePost(post._id)}></Icon>
            <Icon src={currentItem ? ArrowHide : ArrowShow} onClick={() => this.handleToggleContent(i)}></Icon>
         </IconContainer>        
@@ -159,9 +163,13 @@ class Blog extends Component {
     this.props.deletePost(id)
   }
 
+  handleEditPost = post => {
+    if( typeof this.props.onEditPost === 'function')
+      this.props.onEditPost(post);
+  }
+
   render(){
     const { list } = this.state
-    console.log(this.props, 'props')
     return (
       <Fragment>
         <Title>wpisy: </Title>
