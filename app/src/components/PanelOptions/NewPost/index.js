@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 
 import styled from 'styled-components'
 import { lightBlue } from '../../../constColors'
+import { connect } from 'react-redux'
+import { editPost } from '../../../reducers/actions/postsActions'
 
 const Title = styled.h2`
   color: #5E5E5E;
@@ -88,7 +90,8 @@ class NewPost extends Component {
       author: postProps ? postProps.author : '',
       content: postProps ? postProps.content : '',
       _id: postProps ? postProps._id : '',
-      date: postProps ? postProps.date.slice(0, 10) : `${day}/${month + 1}/${year}`
+      date: postProps ? postProps.date.slice(0, 10) : `${day}/${month + 1}/${year}`,
+      currentDate: `${day}/${month + 1}/${year}`
     }
   }
 
@@ -127,17 +130,30 @@ class NewPost extends Component {
     e.preventDefault();
     const { title, author, _id, date, content } = this.state
     const arrayOfError = [];
-    if(!(title.lenght === 0 || author.length === 0 || content.length === 0)){      
-      console.log('weryfikacja')
+    const data = {
+      title,
+      author,
+      date,
+      content,
+      _id
+    }
+    if(!(title.lenght === 0 || author.length === 0 || content.length === 0)){ 
+      if (this.props.edit){
+        this.props.editPost(data)
+        this.setState({
+          title: '',
+          author: '',
+          content: '',
+          date: this.state.currentDate,
+          _id: ''
+        })
+      } else {
+
+      }
     } else {
       arrayOfError.push('wszystkie pola powinny zostać uzupełnione')
     }
-    const data = {
-        title,
-        author,
-        date,
-        content
-    }
+    
   }
 
   render(){
@@ -146,7 +162,7 @@ class NewPost extends Component {
       <React.Fragment>
         <Title>
           {this.props.edit 
-            ? `Edytuj post ${this.state.title}`
+            ? `Edytuj post`
             : 'Dodaj nowy post'
           }
         </Title>
@@ -159,7 +175,7 @@ class NewPost extends Component {
             <Input type="text" name='author' onChange={e => this.changeInput(e)} value={author}></Input>
           </Label>
           <Label>Data:
-            <Input type="text" name='date' onChange={e => this.changeInput(e)} value={date}></Input>
+            <Input type="text" name='date' disabled onChange={e => this.changeInput(e)} value={date}></Input>
           </Label>
           <Label>Text:
             <Textarea name='content' onChange={e => this.changeInput(e)} value={content}></Textarea>
@@ -171,4 +187,4 @@ class NewPost extends Component {
   }
 }
 
-export default NewPost
+export default connect(null , { editPost })(NewPost)
