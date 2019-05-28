@@ -160,6 +160,7 @@ class LoginPanel extends Component{
               </Fragment> 
           }
           </BoxShadow>
+          
         </Container>
       </React.Fragment>
     )

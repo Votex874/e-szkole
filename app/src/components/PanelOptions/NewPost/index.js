@@ -135,34 +135,9 @@ class NewPost extends Component {
   }
 
   changeInput = e => {
-    switch (e.target.name){
-      case 'title': {
-        this.setState({
-          title: e.target.value
-        })
-        return null
-      }
-      case 'author': {
-        this.setState({
-          author: e.target.value
-        })
-        return null
-      }
-      case 'date': {
-        this.setState({
-          date: e.target.value
-        })
-        return null
-      }
-      case 'content': {
-        this.setState({
-          content: e.target.value
-        })
-        return null
-      }
-      default: 
-        return null 
-    }
+    this.setState({
+      [e.target.name]: e.target.value
+    })
   }
 
   handleSubmit = e => {

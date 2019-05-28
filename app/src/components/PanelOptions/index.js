@@ -9,6 +9,7 @@ import Profile from './Profile/index'
 import Users from './Users/index'
 import Blog from './Blog/index'
 import NewPost from './NewPost/index'
+import NewUser from './NewUsers/index'
 
 const OptionsList = styled.ul`
   width: 1000px;
@@ -44,42 +45,43 @@ class PanelOptions extends Component{
     super(props)
 
     this.state = {
-      currentView: <Users />,
+      currentView: <NewUser />,
       list: [
         { 
           name: 'profil',
           component: <Profile />,
-          path: '/panel',
           mainView: false,
           id: 0,
         },
         { 
           name: 'użytkownicy',
           component: <Users />,
-          path: '/panel/uzytkownicy',
-          mainView: true,
+          mainView: false,
           id: 1,
         },
         {
           name: 'blog',
           component: <Blog onEditPost={this.handleEditPost} />,
-          path: '/panel/blog',
           mainView: false,
           id: 2,
         },
         { 
           name: 'galeria',
           component: <div>2</div>,
-          path: '/panel/galeria',
           mainView: false,
           id: 3
         },
         {
           name: 'nowy post',
           component: <NewPost/>,
-          path: '/panel/nowy-post',
           mainView: false,
           id: 4
+        },
+        {
+          name: 'nowy użytkownik',
+          component: <NewUser />,
+          mainView: true,
+          id: 5
         },
       ]
     }

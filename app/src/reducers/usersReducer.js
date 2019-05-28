@@ -1,4 +1,4 @@
-import { FETCH_USERS, DELETE_USER } from './actions/types'
+import { FETCH_USERS, DELETE_USER, NEW_USER } from './actions/types'
 
 const initState = {
   users: [],
@@ -11,6 +11,11 @@ export default function (state = initState, action) {
       return {
         ...state,
         users: action.payload
+      }
+    case NEW_USER:
+      return {
+        ...state,
+        users: [...state.users, action.payload]
       }
     case DELETE_USER:
       return {
