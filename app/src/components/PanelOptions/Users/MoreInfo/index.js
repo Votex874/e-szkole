@@ -14,19 +14,20 @@ const AnswearHolder = styled.span`
 
 class MoreInformation extends Component{
   render(){
+    const { data } = this.props
     return (
       <React.Fragment>
         <ContainerHandler>
           <TextHolder>Rodzaj konta: </TextHolder>
-          <AnswearHolder> none</AnswearHolder>
+          <AnswearHolder>{data.role}</AnswearHolder>
         </ContainerHandler>
         <ContainerHandler>
           <TextHolder>Wiek: </TextHolder>
-          <AnswearHolder>undefined</AnswearHolder>
+          <AnswearHolder>brak informacji</AnswearHolder>
         </ContainerHandler>
         <ContainerHandler>
           <TextHolder>Data założenia: </TextHolder>
-          <AnswearHolder> 23.06.1997</AnswearHolder>
+          <AnswearHolder>{data.date.slice(0, 10).replace(/-/g, '/')}</AnswearHolder>
         </ContainerHandler>        
       </React.Fragment>
     )

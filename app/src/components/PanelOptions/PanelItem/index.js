@@ -36,7 +36,7 @@ const ActiveItem = styled.li`
   cursor: auto;
   @media (max-width: 767px){
     font-size: 12px;
-    padding: 5px;
+    padding: 7px;
   }
 `
 

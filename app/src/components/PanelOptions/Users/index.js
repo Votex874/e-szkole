@@ -3,44 +3,20 @@ import styled from 'styled-components'
 import { connect } from 'react-redux'
 import { lightBlue } from '../../../constColors';
 import { fetchUsers, deleteUser } from '../../../reducers/actions/usersActions'
-
+import Title from '../TitlePanel/index'
 import MoreInformation from './MoreInfo/index'
-import SidebarMenuItem from '../Item/index'
 import ArrowHide from '../../../images/icons/arrow-hide.png'
 import ArrowShow from '../../../images/icons/arrow-show.png'
 import Trash from '../../../images/icons/trash.png'
 
-const Title = styled.h2`
-  text-transform: uppercase;
-  font-size: 120%;
-  margin: 20px auto 0 auto;
-  padding-bottom: 20px;
-  border-bottom: 2px dotted ${lightBlue};
-  text-align: center;
-  width: 98%;
-  @media(max-width: 767px){
-    font-size: 90%;
-    border-bottom: none;
-    margin: 10px 0 0 0;
-    padding-bottom: 10px;
-  }
-  @media (min-width: 768px) and (max-width: 1399px){
-    font-size: 100%;
-    margin: 10px 0 0 0;
-    padding-bottom: 10px;
-  }
-`
-
 const UsersList = styled.ul`
   padding-left: 10px;
-  border-left: 2px solid ${lightBlue};
   margin: 10px auto;
   width: 80%;
   @media (max-width: 767px){
     padding: 0;
     margin: 0;
     width: auto;
-    border-left: 0;
   }
 `
 
@@ -50,6 +26,8 @@ const UserItem = styled.li`
   margin: 16px 0;
   display: flex;
   flex-direction: column;
+  color: #5E5E5E;
+  font-size: 18px;
   @media (min-width: 768px) and (max-width: 1399px){
     margin: 25px 0;
   }
@@ -57,7 +35,10 @@ const UserItem = styled.li`
     margin-top: 0;
   }
   &:last-of-type{
-    margin-bottom: 0;
+    margin-bottom: 20px;
+  }
+  @media (max-width: 767px){
+    font-size: 12px;
   }
 `
 
@@ -106,7 +87,6 @@ const MoreInfo = styled.div`
 	height: 0px;
   visibility: hidden;
   transition: .5s;
-  width: 0px;
 `
 
 const ContainerUserInfo = styled.div`
@@ -132,32 +112,13 @@ const UserName = styled.span`
   }
 `
 
-const SidebarMenu = styled.div`
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  flex-wrap: wrap;
-  flex-direction: column;
-  margin: 10px 0;
-  max-height: 200px;
-  width: 200px;
-  @media (max-width: 767px){
-    border-top: 2px dotted ${lightBlue};
-    border-bottom: 2px dotted ${lightBlue};
-    padding: 10px 0;
-    flex-direction: row;
-    width: auto;
-  }
-`
-
 class Users extends Component{
   constructor(props){
     super(props)
 
     this.state = {
-      sidebarItems: ['wszystkie dzieci', 'sześciolatki', 'pięciolatki', 'czterolatki', 'trzylatki'],
-      usersArray: [],
-      fakeUsers: [],
+      usersData: [],
+      list: []
     }
   }
 
@@ -166,91 +127,56 @@ class Users extends Component{
   }
 
   componentDidUpdate = (prevProps) => {
-    if(this.props.users !== prevProps.users){   
-      const arrayHandler = this.props.users.map((e, i) =>
+    if (this.props.posts !== prevProps.posts)
+      this.createArrayWithUsers();
+
+    if (this.state.list.length === 0)
+      this.createArrayWithUsers();
+  }
+
+  createArrayWithUsers = () => {
+    let usersData = this.state.usersData.length === 0 ? [] : this.state.usersData
+    if (usersData.length === 0) {
+      usersData = [...this.props.users].map(() => {
+        return { isContentVisible: false }
+      })
+    }
+
+    const showContent = { height: 'auto', opacity: '1', visibility: 'visible' }
+    const hideContent = { height: '0', opacity: '0', visibility: 'hidden' }
+
+    const users = [...this.props.users].map((user, i) => {
+      const currentItem = usersData[i].isContentVisible;
+      return (
         <UserItem key={i}>
           <ContainerUserInfo>
             <Id>{i + 1}.</Id>
-            <UserName>{e.email}</UserName>
-            <Icons><Img src={Trash} onClick={() => this.handleDeleteUser(e._id)} /> <Img onClick={() => this.handleShowMoreInfo(i, e.email)} src={ArrowShow} /></Icons>
+            <UserName>{user.email}</UserName>
+            <Icons>
+              <Img src={Trash} onClick={() => this.handleDeleteUser(user._id)} />
+              <Img onClick={() => this.handleToggleContent(i)} src={currentItem ? ArrowHide : ArrowShow} /></Icons>
           </ContainerUserInfo>
-          <MoreInfo>
-            <MoreInformation />
+          <MoreInfo style={currentItem ? showContent : hideContent}>
+            <MoreInformation data={user} />
           </MoreInfo>
-        </UserItem>)
-      this.setState({
-        fakeUsers: arrayHandler
-      })
-    }
+        </UserItem>
+      )
+    })
+    this.setState({
+      list: users,
+      usersData
+    })
   }
 
-  handleShowMoreInfo = (id, email) => {
-    const { fakeUsers } = this.state
-    const arrayHandler = [...fakeUsers];
-
-    arrayHandler[id] = <UserItem key={id}>
-      <ContainerUserInfo>
-        <Id>{id + 1}.</Id>
-        <UserName>{email}</UserName>
-        <Icons><Img src={Trash} onClick={() => this.handleDeleteUser(id)} /> <Img onClick={() => this.handleHideMoreInfo(id, email)} src={ArrowHide} /></Icons>
-      </ContainerUserInfo>
-      <MoreInfo>
-        <MoreInformation />
-      </MoreInfo>
-    </UserItem>
+  handleToggleContent = id => {
+    const { usersData } = this.state
+    let arrayData = [...usersData]
+    arrayData[id].isContentVisible = !arrayData[id].isContentVisible
 
     this.setState({
-      usersArray: arrayHandler
+      postsData: arrayData
     })
-
-    const styleSlideUp = {
-      height: 100,
-      visibility: "visible", 
-      width: 'auto'
-    }
-
-    setTimeout(() => {
-      arrayHandler[id] = <UserItem key={id}>
-        <ContainerUserInfo>
-          <Id>{id + 1}.</Id>
-          <UserName>{email}</UserName>
-          <Icons><Img src={Trash} onClick={() => this.handleDeleteUser(id)} /> <Img onClick={() => this.handleHideMoreInfo(id, email)} src={ArrowHide} /></Icons>
-        </ContainerUserInfo>
-        <MoreInfo style={ styleSlideUp }>
-          <MoreInformation />
-        </MoreInfo>
-      </UserItem>
-      this.setState({
-        usersArray: arrayHandler
-      })
-    }, 100)
-  }
-
-  handleHideMoreInfo = (id, email) => {
-    const { usersArray } = this.state
-    const arrayHandler = [...usersArray];
-
-    const styleSlideUp = {
-      height: 0,
-      visibility: "hidden", 
-      width: 'auto',
-      opacity: '0'
-    }
-
-    arrayHandler[id] = <UserItem key={id}> 
-      <ContainerUserInfo>
-        <Id>{id + 1}.</Id>
-        <UserName>{email}</UserName>
-        <Icons><Img src={Trash} onClick={() => this.handleDeleteUser(id)} /> <Img onClick={() => this.handleShowMoreInfo(id, email)} src={ArrowShow} /></Icons>
-      </ContainerUserInfo>
-      <MoreInfo style={styleSlideUp}>
-        <MoreInformation />
-      </MoreInfo>
-    </UserItem>
-
-    this.setState({
-      usersArray: arrayHandler
-    })
+    this.createArrayWithUsers();
   }
 
   handleDeleteUser = id => {
@@ -258,26 +184,18 @@ class Users extends Component{
   }
 
   render(){
-    const { sidebarItems, usersArray, fakeUsers } = this.state
-    const { users } = this.props
-    console.log('sus')
+    const { list } = this.state
     return (
       <React.Fragment>
-        <Title>Zarządzaj członkami przedszkola</Title>
+        <Title text='Zarządzaj członkami przedszkola' />
         <MainContainer>
-          <SidebarMenu>
-            {sidebarItems.map((e, i) => {
-              return <SidebarMenuItem key={i} content={e} />
-            })}
-          </SidebarMenu>
           <UsersList>
-            {usersArray.length > 0 
-            ? usersArray 
-            : users.length > 0
-                ? fakeUsers
-                : <p>Trwa wczytywanie użytkowników... </p> //TODO: Dodać jakiegoś kręcioła jako osobny komponent
+            {list.length > 0 
+              ? list
+              : <p>Trwa wczytywanie użytkowników... </p> //TODO: Dodać jakiegoś kręcioła jako osobny komponent
            }            
           </UsersList>
+          
         </MainContainer>
       </React.Fragment>
     )

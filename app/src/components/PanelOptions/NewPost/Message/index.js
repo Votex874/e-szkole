@@ -40,7 +40,7 @@ class Message extends Component {
             visibility: 'hidden'
           }
         })
-      }, 1500)
+      }, 2500)
     }
   }
 

@@ -6,22 +6,11 @@ import { lightBlue } from '../../../constColors'
 import { fetchPosts, deletePost } from '../../../reducers/actions/postsActions'
 import store from '../../../reducers/store'
 
+import Title from '../TitlePanel/index'
 import EditPen from '../../../images/icons/edit.png'
 import Trash from '../../../images/icons/trash.png'
 import ArrowHide from '../../../images/icons/arrow-hide.png'
 import ArrowShow from '../../../images/icons/arrow-show.png'
-
-const Title = styled.h2`
-  text-transform: uppercase;
-  margin: 20px auto;
-  text-align: center;
-  text-decoration: underline;
-  font-weight: bold;
-  color: #5E5E5E;
-  @media (max-width: 767px){
-    font-size: 18px;
-  }
-`
 
 const ListOfPosts = styled.ol`
   display: block;
@@ -30,9 +19,11 @@ const ListOfPosts = styled.ol`
 `
 
 const ItemOfList = styled.li`
-  margin: 10px 0;
+  margin: 10px auto;
   padding-bottom: 5px;
   border-bottom: 1px solid ${lightBlue};
+  font-size: 18px;
+  width: 88%;
   @media (max-width: 767px){
     width: 90%;
     font-size: 12px;
@@ -69,6 +60,8 @@ const IconContainer = styled.div`
 const Icon = styled.img`
   margin: 0 5px;
   cursor: pointer;
+  width: 22px;
+  height: 22px;
   @media(max-width: 767px){    
     width: 14px;
     height: 14px;
@@ -172,7 +165,7 @@ class Blog extends Component {
     const { list } = this.state
     return (
       <Fragment>
-        <Title>wpisy: </Title>
+        <Title text="Wpisy: " />
         <ListOfPosts>
           {list}
         </ListOfPosts>

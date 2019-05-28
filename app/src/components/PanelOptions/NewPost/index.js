@@ -5,17 +5,7 @@ import { lightBlue } from '../../../constColors'
 import { connect } from 'react-redux'
 import { editPost, createPost } from '../../../reducers/actions/postsActions'
 import Message from './Message/index'
-
-const Title = styled.h2`
-  color: #5E5E5E;
-  text-align: center;
-  margin: 30px auto 20px auto;
-  font-size: 30px;
-  @media(max-width: 767px){
-    font-size: 26px;
-    width: 90%;
-  }
-`
+import Title from '../TitlePanel/index'
 
 const Form = styled.form`
   display: flex;
@@ -32,25 +22,69 @@ const Label = styled.label`
   display: flex;
   flex-direction: column;
   margin: 10px auto;
+  font-size: 20px;
+  color: #ABABAB;
   @media(max-width: 767px){
-
+    font-size: 16px;
   }
 `
 
 const Input = styled.input`
-  border: ${props => props.submit ? `2px solid ${lightBlue}` : 'none'};
-  border-bottom: ${props => props.submit ? '' : '1px solid #5E5E5E'};
-  border-radius: ${props => props.submit ? '10px' : ''};
-  background-color: #fff;
-  color: ${props => props.submit ? `${lightBlue}` : ''};
-  font-weight: ${props => props.submit ? `bold` : ''};
   outline: none;
-  margin: ${props => props.submit ? '10px 0' : '0'};
+  transition: .2s;
+  ${props => props.submit 
+  ? { //submit
+      border: `2px solid ${lightBlue}`,
+      borderRadius: '15px',
+      backgroundColor: '#fff',
+      color: `${lightBlue}`,
+      fontWeight: 'bold',
+      margin: '10px 0',
+      width: '200px',
+      padding: '10px',
+      fontSize: '26px',
+      cursor: 'pointer',
+    } 
+  : { //input basic
+      border: 'none',
+      borderBottom: '1px solid #5E5E5E',
+      backgroundColor: '#F1F1F1',
+      color: '#ABABAB',
+      width: '400px',
+      padding: '15px 15px 2px 15px',
+      fontSize: '20px',
+    }
+  }
   @media(max-width: 767px){
-    width: ${props => props.submit ? '140px' : '200px'};
-    padding: ${props => props.submit ? '10px' : '7px 5px 2px 5px'};
-    border-radius: ${props => props.submit ? '5px' : ''};
-    font-size: ${props => props.submit ? '18px': '16px'};
+    ${props => props.submit
+      ? { //submit
+        borderRadius: '5px',
+        width: '140px',
+        fontSize: '18px',
+      }
+      : { //input basic,
+        width: '200px',
+        padding: '7px  5px 2px 5px',
+        fontSize: '16px',
+      }
+    }
+  }
+   @media (min-width: 1400px){
+    &:hover{
+    ${props => props.submit
+    ? {
+      color: '#fff',
+      backgroundColor: lightBlue
+    }
+    : null}
+    }
+    &:focus{
+      ${props => props.submit
+    ? null
+    : {
+      borderBottom: `2px solid ${lightBlue}`
+    }}
+    }
   }
 `
 
@@ -59,21 +93,22 @@ const Textarea = styled.textarea`
   border-bottom: 1px solid #5E5E5E;
   outline: none;
   resize: none;
+  width: 400px;
+  padding: 15px 15px 2px 15px;
+  background-color: #F1F1F1;
+  color: #ABABAB;
+  font-size: 20px;
+  height: 160px;
   @media(max-width: 767px){
     width: 200px;    
     padding: 7px 5px 2px 5px;
     font-size: 16px;
   }
-`
-
-const HrLine = styled.hr`
- border-color: ${lightBlue};
- width: 80%;
- margin: 10px auto;
- opacity: 0.8;
- @media (max-width: 767px){
-   margin: 10px auto;
- }
+  @media(min-width: 1400px){
+    &:focus{
+      border-bottom: 2px solid ${lightBlue};
+    }
+  }
 `
 
 class NewPost extends Component {
@@ -170,20 +205,17 @@ class NewPost extends Component {
       this.setState({
         messageComponent: false
       })
-    }, 2000)
+    }, 3000)
   }
 
   render(){
     const { title, author, content, date, errors, messages, messageComponent} = this.state
     return (
       <React.Fragment>
-        <Title>
-          {this.props.edit 
-            ? `Edytuj post`
-            : 'Dodaj nowy post'
-          }
-        </Title>
-        <HrLine />
+        {this.props.edit 
+          ? <Title text='Edytuj post'/>
+          : <Title text='Dodaj nowy post'/>          
+        }
         <Form onSubmit={e => this.handleSubmit(e)}>
           <Label>Tytuł:
             <Input type="text" name='title' value={title} onChange={e => this.changeInput(e)}></Input>

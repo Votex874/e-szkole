@@ -44,7 +44,7 @@ class PanelOptions extends Component{
     super(props)
 
     this.state = {
-      currentView: <NewPost edit={false} />,
+      currentView: <Users />,
       list: [
         { 
           name: 'profil',
@@ -57,7 +57,7 @@ class PanelOptions extends Component{
           name: 'użytkownicy',
           component: <Users />,
           path: '/panel/uzytkownicy',
-          mainView: false,
+          mainView: true,
           id: 1,
         },
         {
@@ -78,7 +78,7 @@ class PanelOptions extends Component{
           name: 'nowy post',
           component: <NewPost/>,
           path: '/panel/nowy-post',
-          mainView: true,
+          mainView: false,
           id: 4
         },
       ]
