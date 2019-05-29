@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { lightBlue } from '../../../constColors'
 import { connect } from 'react-redux'
 import { editPost, createPost } from '../../../reducers/actions/postsActions'
-import Message from './Message/index'
+import Message from '../Message/index'
 import Title from '../TitlePanel/index'
 
 const Form = styled.form`

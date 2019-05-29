@@ -45,7 +45,7 @@ class PanelOptions extends Component{
     super(props)
 
     this.state = {
-      currentView: <NewUser />,
+      currentView: <Users />,
       list: [
         { 
           name: 'profil',
@@ -56,7 +56,7 @@ class PanelOptions extends Component{
         { 
           name: 'użytkownicy',
           component: <Users />,
-          mainView: false,
+          mainView: true,
           id: 1,
         },
         {
@@ -80,7 +80,7 @@ class PanelOptions extends Component{
         {
           name: 'nowy użytkownik',
           component: <NewUser />,
-          mainView: true,
+          mainView: false,
           id: 5
         },
       ]
@@ -121,7 +121,7 @@ class PanelOptions extends Component{
         <OptionsList>
           {this.state.list.map((e,i) => {
             if(adminStatus === null){
-              if(e.name === 'użytkownicy' || e.name === 'blog'){
+              if(e.name === 'użytkownicy' || e.name === 'blog' || e.name === 'nowy post' ||  e.name === 'nowy użytkownik'){
                 return 
               } else {
                 return <PanelItem id={i} handleClick={this.handleClick}  key={i} content={e} />

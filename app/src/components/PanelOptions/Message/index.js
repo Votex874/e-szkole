@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 import styled from 'styled-components'
-import { lightBlue } from '../../../../constColors'
+import { lightBlue } from '../../../constColors'
 import { setTimeout } from 'timers';
 
 const Container = styled.div`

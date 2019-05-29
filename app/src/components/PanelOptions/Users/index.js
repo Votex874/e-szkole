@@ -3,6 +3,8 @@ import styled from 'styled-components'
 import { connect } from 'react-redux'
 import { lightBlue } from '../../../constColors';
 import { fetchUsers, deleteUser } from '../../../reducers/actions/usersActions'
+
+import Pagination from '../Pagination/index'
 import Title from '../TitlePanel/index'
 import MoreInformation from './MoreInfo/index'
 import ArrowHide from '../../../images/icons/arrow-hide.png'
@@ -23,7 +25,7 @@ const UsersList = styled.ul`
 const UserItem = styled.li`
   border-bottom: 1px solid ${lightBlue};
   padding-bottom: 4px;
-  margin: 16px 0;
+  margin: 24px 0;
   display: flex;
   flex-direction: column;
   color: #5E5E5E;
@@ -118,7 +120,7 @@ class Users extends Component{
 
     this.state = {
       usersData: [],
-      list: []
+      list: [],
     }
   }
 
@@ -134,7 +136,8 @@ class Users extends Component{
       this.createArrayWithUsers();
   }
 
-  createArrayWithUsers = () => {
+  createArrayWithUsers = (p = 1) => {
+    const visibleUsers = this.visibleUsers(p)
     let usersData = this.state.usersData.length === 0 ? [] : this.state.usersData
     if (usersData.length === 0) {
       usersData = [...this.props.users].map(() => {
@@ -147,8 +150,9 @@ class Users extends Component{
 
     const users = [...this.props.users].map((user, i) => {
       const currentItem = usersData[i].isContentVisible;
+      const activeUser = visibleUsers[i] ? 'flex' : 'none'
       return (
-        <UserItem key={i}>
+        <UserItem style={{display: activeUser}} key={i}>
           <ContainerUserInfo>
             <Id>{i + 1}.</Id>
             <UserName>{user.email}</UserName>
@@ -182,6 +186,23 @@ class Users extends Component{
   handleDeleteUser = id => {
     this.props.deleteUser(id)
   }
+  
+  visibleUsers = (id = 1) => {
+    const num = id * 10
+    const isVisibleUserArray = [...this.props.users].map((e, i) => {
+      if (i < num && i > (num - 11)) {
+        return true
+      } else {
+        return false
+      }
+
+    })
+    return isVisibleUserArray;
+  }
+
+  handlePagination = id => {
+    this.createArrayWithUsers(id);
+  }
 
   render(){
     const { list } = this.state
@@ -194,10 +215,9 @@ class Users extends Component{
               ? list
               : <p>Trwa wczytywanie użytkowników... </p> //TODO: Dodać jakiegoś kręcioła jako osobny komponent
            }            
-          </UsersList>
-          
+          </UsersList>          
         </MainContainer>
-        
+        <Pagination onClickPagination={this.handlePagination} numberOfItems={Math.ceil(list.length / 10)} />
       </React.Fragment>
     )
   }

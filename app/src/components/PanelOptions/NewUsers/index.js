@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { lightBlue } from '../../../constColors'
 import { connect } from 'react-redux'
 import { createUser } from '../../../reducers/actions/usersActions'
-import Message from '../NewPost/Message/index'
+import Message from '../Message/index'
 import Title from '../TitlePanel/index'
 
 const Form = styled.form`
@@ -24,6 +24,9 @@ const RadioContainer = styled.div`
   align-items: center;
   width: 430px;
   margin: 5px 0;
+  @media (max-width: 767px){
+    width: 215px;
+  }
 `
 
 const RadioText = styled.span`
@@ -146,7 +149,7 @@ class NewUser extends Component {
           email: '',
           password: '',
           password2: '',
-          role: '',
+          role: 'user',
         })
       } else {
         arrayOfError.push('wszystkie pola powinny zostać uzupełnione.')

@@ -4,9 +4,9 @@ import styled from 'styled-components'
 import { connect } from "react-redux";
 import { lightBlue } from '../../../constColors'
 import { fetchPosts, deletePost } from '../../../reducers/actions/postsActions'
-import store from '../../../reducers/store'
 
 import Title from '../TitlePanel/index'
+import Pagination from '../Pagination/index'
 import EditPen from '../../../images/icons/edit.png'
 import Trash from '../../../images/icons/trash.png'
 import ArrowHide from '../../../images/icons/arrow-hide.png'
@@ -23,7 +23,10 @@ const ItemOfList = styled.li`
   padding-bottom: 5px;
   border-bottom: 1px solid ${lightBlue};
   font-size: 18px;
-  width: 88%;
+  width: 80%;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
   @media (max-width: 767px){
     width: 90%;
     font-size: 12px;
@@ -41,20 +44,30 @@ const PostData = styled.span`
   padding-left: 5px;
 `
 
-const SubContainer = styled.div`
-  display: flex;
-  margin: 7px 0;
-`
 const Container = styled.div`
   display: flex;
   margin: 7px 0;
   justify-content: space-between;
+  ${props => props.sub ? {
+    justifyContent: 'flex-start',
+  } : ''}
+  ${props => props.fake ? {
+    display: 'block',
+    width: '100%',
+    marginLeft: 'auto'
+  } : ''}
 `
 
 const IconContainer = styled.div`
   display: flex;
   justify-content: flex-end;
   margin-right: 2px;
+`
+
+const ShowNumber = styled.span`
+  color: #ABABAB;
+  width: 30px;
+  margin: 20px 0;
 `
 
 const Icon = styled.img`
@@ -78,7 +91,8 @@ class Blog extends Component {
 
     this.state = {
       list: [],
-      postsData: []
+      postsData: [],
+      page: 1
     }
   }
 
@@ -94,7 +108,9 @@ class Blog extends Component {
       this.createArrayWithPosts();
   }
 
-  createArrayWithPosts = () => {
+  createArrayWithPosts = (p = 1) => {
+    const visiblePosts = this.visiblePosts(p);
+    
     let postsData = this.state.postsData.length === 0 ? [] : this.state.postsData;
     if(this.state.postsData.length === 0){            
       postsData = [...this.props.posts].map(() => {
@@ -108,37 +124,54 @@ class Blog extends Component {
 
     const posts = [...this.props.posts].map((post, i) => {
       const currentItem = postsData[i].isContentVisible;
-       return <ItemOfList type="I" key={post._id}>
-        <Container>
-          <SubContainer>              
-            <BoldText>Author: </BoldText>
-            <PostData>{post.author}</PostData>
-          </SubContainer>
-          <SubContainer>
-            <BoldText>D: </BoldText>
-            <PostData>{post.date.slice(0, 10).replace(/-/g, '/')}</PostData>
-          </SubContainer>
-        </Container>
-        <SubContainer>
-          <BoldText>Title: </BoldText>
-          <PostData>{post.title}</PostData>
-        </SubContainer>
-        <SubContainer style={currentItem ? showContent : hideContent}>
-          <BoldText>Content:</BoldText>
-          <ContentContainer>{post.content.slice(0, 80)}...</ContentContainer>
-        </SubContainer>
-        <IconContainer>
-          <Icon src={EditPen} onClick={() => this.handleEditPost(post)}></Icon>
-          <Icon src={Trash} onClick={() => this.handleDeletePost(post._id)}></Icon>
-           <Icon src={currentItem ? ArrowHide : ArrowShow} onClick={() => this.handleToggleContent(i)}></Icon>
-        </IconContainer>        
-      </ItemOfList>
+        const activePost = visiblePosts[i] ? 'flex' : 'none'
+        return <ItemOfList style={{display: activePost}}  type="I" key={post._id}>
+            <ShowNumber>{i + 1}.</ShowNumber>
+            <Container fake>
+              <Container>
+                <Container sub>
+                  <BoldText>Author: </BoldText>
+                  <PostData>{post.author}</PostData>
+                </Container>
+                <Container sub>
+                  <BoldText>D: </BoldText>
+                  <PostData>{post.date.slice(0, 10).replace(/-/g, '/')}</PostData>
+                </Container>
+              </Container>
+              <Container sub>
+                <BoldText>Title: </BoldText>
+                <PostData>{post.title}</PostData>
+              </Container>
+              <Container sub style={currentItem ? showContent : hideContent}>
+                <BoldText>Content:</BoldText>
+                <ContentContainer>{post.content.slice(0, 80)}...</ContentContainer>
+              </Container>
+              <IconContainer>
+                <Icon src={EditPen} onClick={() => this.handleEditPost(post)}></Icon>
+                <Icon src={Trash} onClick={() => this.handleDeletePost(post._id)}></Icon>
+                <Icon src={currentItem ? ArrowHide : ArrowShow} onClick={() => this.handleToggleContent(i)}></Icon>
+              </IconContainer>
+            </Container>
+        </ItemOfList>    
     })
   
     this.setState({
       list: posts,
       postsData
     })
+  }
+
+  visiblePosts = (id = 1) => {
+    const num = id * 10
+    const isVisiblePostArray = [...this.props.posts].map((e, i) => {
+      if(i < num && i > (num - 11)) {
+        return true
+      } else {
+        return false
+      }
+      
+    })
+    return isVisiblePostArray;
   }
 
   handleToggleContent = id => {
@@ -161,6 +194,13 @@ class Blog extends Component {
       this.props.onEditPost(post);
   }
 
+  handlePagination = id => {
+    this.setState({
+      page: id
+    })
+    this.createArrayWithPosts(id);
+  }
+
   render(){
     const { list } = this.state
     return (
@@ -169,6 +209,7 @@ class Blog extends Component {
         <ListOfPosts>
           {list}
         </ListOfPosts>
+        <Pagination onClickPagination={this.handlePagination} numberOfItems={Math.ceil(list.length / 10)} />
       </Fragment>
     )
   }
