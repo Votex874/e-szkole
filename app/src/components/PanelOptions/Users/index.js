@@ -129,11 +129,44 @@ class Users extends Component{
   }
 
   componentDidUpdate = (prevProps) => {
-    if (this.props.posts !== prevProps.posts)
+    if (this.props.users !== prevProps.users)
       this.createArrayWithUsers();
-
+    
     if (this.state.list.length === 0)
       this.createArrayWithUsers();
+    
+  }
+
+  handleToggleContent = id => {
+    const { usersData } = this.state
+    let arrayData = [...usersData]
+    arrayData[id].isContentVisible = !arrayData[id].isContentVisible
+
+    this.setState({
+      postsData: arrayData
+    })
+    this.createArrayWithUsers();
+  }
+
+  handleDeleteUser = id => {
+    this.props.deleteUser(id)
+  }
+
+  visibleUsers = (id = 1) => {
+    const num = id * 10
+    const isVisibleUserArray = [...this.props.users].map((e, i) => {
+      if (i < num && i > (num - 11)) {
+        return true
+      } else {
+        return false
+      }
+
+    })
+    return isVisibleUserArray;
+  }
+
+  handlePagination = id => {
+    this.createArrayWithUsers(id);
   }
 
   createArrayWithUsers = (p = 1) => {
@@ -170,38 +203,6 @@ class Users extends Component{
       list: users,
       usersData
     })
-  }
-
-  handleToggleContent = id => {
-    const { usersData } = this.state
-    let arrayData = [...usersData]
-    arrayData[id].isContentVisible = !arrayData[id].isContentVisible
-
-    this.setState({
-      postsData: arrayData
-    })
-    this.createArrayWithUsers();
-  }
-
-  handleDeleteUser = id => {
-    this.props.deleteUser(id)
-  }
-  
-  visibleUsers = (id = 1) => {
-    const num = id * 10
-    const isVisibleUserArray = [...this.props.users].map((e, i) => {
-      if (i < num && i > (num - 11)) {
-        return true
-      } else {
-        return false
-      }
-
-    })
-    return isVisibleUserArray;
-  }
-
-  handlePagination = id => {
-    this.createArrayWithUsers(id);
   }
 
   render(){

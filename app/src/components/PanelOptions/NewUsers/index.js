@@ -118,7 +118,7 @@ class NewUser extends Component {
       password: '',
       password2: '',
       role: 'user',
-      errors: [],
+      error: false,
       messages: [],
       messageComponent: false,
     }
@@ -134,44 +134,74 @@ class NewUser extends Component {
     e.preventDefault();
     const { email, password, password2, role } = this.state
     const arrayOfError = [];
-    const messageArray = [];
-
-    if (!(email.lenght === 0 || password.length === 0 || password2.length === 0 || role.length === 0)) {
-      if( password === password2){     
-        const userObj = {
+    let isError = false
+    let isUserExist = false
+     const userObj = {
           email,
           password,
           role
         }
+    
+    for (let key in this.props.users){
+      if(this.props.users[key].email === email){
+        isUserExist = true
+      }
+    }
 
-        this.props.createUser(userObj)
+    console.log(isUserExist)
+    if(!isUserExist){
+      //checks if fields are not empty
+      if (email.lenght === 0 || password.length === 0 || password2.length === 0 || role.length === 0) {
+        isError = true;
+        arrayOfError.push('Przepraszamy, ale pola nie mogą pozostać puste.')
+      }
+      //checks if passwrods match 
+      if (password !== password2) {
+        isError = true;
         this.setState({
-          email: '',
           password: '',
           password2: '',
-          role: 'user',
         })
-      } else {
-        arrayOfError.push('wszystkie pola powinny zostać uzupełnione.')
-        messageArray.push('Hasła muszą być takie same.')
+        arrayOfError.push('Hasła muszą być takie same.')
       }
-    } else {
-      arrayOfError.push('wszystkie pola powinny zostać uzupełnione.')
-      messageArray.push('Przepraszamy, ale pola nie mogą pozostać puste.')
+      //check if passwrods are longer than 7 character
+      if (password.length < 8 || password2.length < 8) {
+        this.setState({
+          password: '',
+          password2: '',
+        })
+        arrayOfError.push('Hasło powinno zawierać więcej niż 7 znaków.')
+      }
+      //checks if email contain "@" or "." 
+      if (email.indexOf('@') === -1 && email.indexOf('.') === -1) {
+        isError = true;
+        this.setState({
+          email: '',
+        })
+        arrayOfError.push('Email powinien zawierać znak "@" oraz "."')
+      }
     }
     this.setState({
       messageComponent: true,
-      errors: arrayOfError,
-      messages: messageArray
+      messages: arrayOfError.length === 0 ? ['Użytkownik został dodany do bazy danych.'] : arrayOfError ,
+      error: isError
     })
+    if(arrayOfError.length === 0){
+      this.props.createUser(userObj)
+      this.setState({
+        email: '',
+        password: '',
+        password2: ''
+      })
+    }
     const setTime = setTimeout(() => {
       this.setState({
-        messageComponent: false
+        messageComponent: false,        
       })
     }, 3000)
   }
   render() {
-    const { email, password, password2, errors, messages, messageComponent } = this.state
+    const { email, password, password2, error, messages, messageComponent } = this.state
     return (
       <React.Fragment>
         <Title text="Dodaj użytkownika" />
@@ -196,7 +226,7 @@ class NewUser extends Component {
             </RadioContainer>
           </Label>
           {messageComponent
-            ? <Message errors={errors} messages={messages} />
+            ? <Message error={error} messages={messages} />
             : null
           }
           <Input submit type='submit' value='Wyślij' />
@@ -206,4 +236,8 @@ class NewUser extends Component {
   }
 }
 
-export default connect(null, { createUser })(NewUser)
+const mapStateToProps = ({ users }) => ({
+  users: users.users
+})
+
+export default connect(mapStateToProps, { createUser })(NewUser)

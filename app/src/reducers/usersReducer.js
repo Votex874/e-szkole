@@ -2,7 +2,6 @@ import { FETCH_USERS, DELETE_USER, NEW_USER } from './actions/types'
 
 const initState = {
   users: [],
-  user: {},
 }
 
 export default function (state = initState, action) {
@@ -18,6 +17,7 @@ export default function (state = initState, action) {
         users: [...state.users, action.payload]
       }
     case DELETE_USER:
+      console.log(action.payload._id)
       return {
         ...state,
         users: state.users.filter(user => user._id !== action.payload._id)

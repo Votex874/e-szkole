@@ -25,7 +25,7 @@ class Message extends Component {
       style: {
         opacity: '1',
         visibility: 'visible',
-        borderColor: this.props.errors.length === 0 ? '#2EE84C' : '#E51300'
+        borderColor: this.props.error ? '#2EE84C' : '#E51300'
       }
     }
   }
