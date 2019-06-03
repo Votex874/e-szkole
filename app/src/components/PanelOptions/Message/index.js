@@ -8,9 +8,11 @@ const Container = styled.div`
   text-align: center;
   color: #5E5E5E;
   transition: .4s;
+  border: 3px solid;
+  padding: 15px;
+  border-radius: 10px;
   @media (max-width: 767px){
     width: 200px;
-    border: 3px solid;
     border-radius: 5px;
     padding: 10px;
   }
@@ -25,7 +27,7 @@ class Message extends Component {
       style: {
         opacity: '1',
         visibility: 'visible',
-        borderColor: this.props.error ? '#2EE84C' : '#E51300'
+        borderColor: !this.props.error ? '#2EE84C' : '#E51300'
       }
     }
   }
@@ -37,7 +39,8 @@ class Message extends Component {
           isVisible: false,
           style: {
             opacity: '0',
-            visibility: 'hidden'
+            visibility: 'hidden',
+            borderColor: this.state.style.borderColor
           }
         })
       }, 2500)

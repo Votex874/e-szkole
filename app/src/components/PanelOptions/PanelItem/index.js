@@ -17,6 +17,7 @@ const SingleItem = styled.li`
     padding: 5px;
   }
   @media(min-width: 1400px){
+    cursor: pointer;
     &:hover{
       color: #fff;
       background-color: ${lightBlue};

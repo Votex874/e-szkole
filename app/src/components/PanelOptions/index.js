@@ -45,18 +45,18 @@ class PanelOptions extends Component{
     super(props)
 
     this.state = {
-      currentView: <Users />,
+      currentView: <Profile />,
       list: [
         { 
           name: 'profil',
           component: <Profile />,
-          mainView: false,
+          mainView: true,
           id: 0,
         },
         { 
           name: 'użytkownicy',
           component: <Users />,
-          mainView: true,
+          mainView: false,
           id: 1,
         },
         {

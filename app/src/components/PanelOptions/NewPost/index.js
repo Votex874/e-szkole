@@ -32,6 +32,10 @@ const Label = styled.label`
 const Input = styled.input`
   outline: none;
   transition: .2s;
+  &:focus {
+    background-color: #fff;
+  }
+  font-family: 'Lato', sans-serif;
   ${props => props.submit 
   ? { //submit
       border: `2px solid ${lightBlue}`,
@@ -99,6 +103,10 @@ const Textarea = styled.textarea`
   color: #ABABAB;
   font-size: 20px;
   height: 160px;
+  font-family: 'Lato', sans-serif;
+  &:focus {
+    background-color: #fff;
+  }
   @media(max-width: 767px){
     width: 200px;    
     padding: 7px 5px 2px 5px;

@@ -57,24 +57,26 @@ class Pagination extends Component {
 
   createPaginationView = (activeItem = 0) => {
     const { numberOfItems } = this.props
-    let arrayOfPagination = []
-    for(let i = 0; i < numberOfItems; i++){
-      arrayOfPagination[i] = i
-    }
-    let arrayOfPaginationItems = [...arrayOfPagination].map(item => {
-      if(item === activeItem){
-        return (
-          <PaginationItem onClick={() => this.handleClickItem(item)} active key={item}>{item + 1}</PaginationItem>
-        )
-      } else {        
-        return (
-          <PaginationItem onClick={() => this.handleClickItem(item)} key={item}>{item + 1}</PaginationItem>
-        )
+    if(numberOfItems > 1){      
+      let arrayOfPagination = []
+      for(let i = 0; i < numberOfItems; i++){
+        arrayOfPagination[i] = i
       }
-    })
-    this.setState({
-      list: arrayOfPaginationItems
-    })
+      let arrayOfPaginationItems = [...arrayOfPagination].map(item => {
+        if(item === activeItem){
+          return (
+            <PaginationItem onClick={() => this.handleClickItem(item)} active key={item}>{item + 1}</PaginationItem>
+          )
+        } else {        
+          return (
+            <PaginationItem onClick={() => this.handleClickItem(item)} key={item}>{item + 1}</PaginationItem>
+          )
+        }
+      })
+      this.setState({
+        list: arrayOfPaginationItems
+      })
+    }
   }
 
   handleClickItem = (id) => {

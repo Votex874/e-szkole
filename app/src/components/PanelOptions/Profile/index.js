@@ -252,7 +252,7 @@ class Profile extends Component{
                 <Submit type="submit" value="Wyślij Zmiany"></Submit>
               </AccountForm>
             </React.Fragment>
-          : 'dada'
+          : 'Trwa wczytywanie danych...'
         }
       </div>
     )

@@ -102,7 +102,6 @@ class Blog extends Component {
 
   componentDidUpdate = (prevProps) => {
     if(this.props.posts !== prevProps.posts){
-      console.log('dzialam')
       this.createArrayWithPosts();
     }
      

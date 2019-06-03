@@ -48,6 +48,10 @@ const Label = styled.label`
 const Input = styled.input`
   outline: none;
   transition: .2s;
+  font-family: 'Lato', sans-serif;
+  &:focus {
+    background-color: #fff;
+  }
   ${props => props.submit
     ? { //submit
       border: `2px solid ${lightBlue}`,
