@@ -50,8 +50,9 @@ class Pagination extends Component {
     }
   }
 
-  componentDidMount = () => {
-    this.createPaginationList(0)
+  componentDidUpdate = () => {
+    if(this.state.paginationItems.length === 0)
+      this.createPaginationList(0)
   }
 
   createPaginationList = id => {
@@ -91,9 +92,9 @@ class Pagination extends Component {
   }
 }
 
-const mapStateToProps = ({ initialState }) => {
+const mapStateToProps = ({ posts }) => {
   return {
-    news: initialState.news
+    news: posts.list
   }
 }
 

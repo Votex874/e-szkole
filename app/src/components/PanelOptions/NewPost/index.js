@@ -138,7 +138,8 @@ class NewPost extends Component {
       currentDate: `${day}/${month + 1}/${year}`,
       errors: [],
       messages: [],
-      messageComponent: false
+      messageComponent: false,
+      error: false
     }
   }
 
@@ -151,8 +152,8 @@ class NewPost extends Component {
   handleSubmit = e => {
     e.preventDefault();
     const { title, author, _id, date, content } = this.state
-    const arrayOfError = [];
     const messageArray = [];
+    let isError = false
     if(!(title.lenght === 0 || author.length === 0 || content.length === 0)){ 
       if (this.props.edit){ 
         const data = {
@@ -176,13 +177,12 @@ class NewPost extends Component {
 
       })
     } else {
-      arrayOfError.push('wszystkie pola powinny zostać uzupełnione.')
-      messageArray.push('Przepraszamy, ale pola nie mogą pozostać puste.')    
+      isError = true    
     }
     this.setState({
       messageComponent: true,
-      errors: arrayOfError,
-      messages: messageArray
+      messages: messageArray.length !== 0 ? messageArray : ['Przepraszamy, ale wszystkie pola powinny zostać uzupełnione'] ,
+      error: isError
     })
     const setTime = setTimeout(() => {
       this.setState({
@@ -192,7 +192,7 @@ class NewPost extends Component {
   }
 
   render(){
-    const { title, author, content, date, errors, messages, messageComponent} = this.state
+    const { title, author, content, date, error, messages, messageComponent} = this.state
     return (
       <React.Fragment>
         {this.props.edit 
@@ -213,7 +213,7 @@ class NewPost extends Component {
             <Textarea name='content' onChange={e => this.changeInput(e)} value={content}></Textarea>
           </Label>
           {messageComponent 
-            ? <Message errors={errors} messages={messages} />
+            ? <Message error={error} messages={messages} />
             : null
           }
           <Input submit type='submit' value='Wyślij'/>

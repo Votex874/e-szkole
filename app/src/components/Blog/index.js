@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
 import { connect } from 'react-redux'
+import { fetchPosts } from '../../reducers/actions/postsActions'
 
 import Post from './Post/index'
 import SectionTitle from '../SectionTitle/index'
@@ -22,15 +23,21 @@ class Blog extends Component {
     }
   }
 
-  componentDidMount = () => {
+  componentWillMount = () => {
+    this.props.fetchPosts();
+  }
+
+  componentDidUpdate = () => {
     const { news } = this.props
-    let list = [];
-    list = news.map((post, i) => (
+    if(this.state.postList.length === 0){
+      let list = [];
+      list = news.map((post, i) => (
         <Post key={i} content={post} />
-    ))
-    this.setState({
-      postList: list
-    })
+      ))
+      this.setState({
+        postList: list
+      })
+    }
   }
 
   handlePagination = (id) => {
@@ -61,10 +68,10 @@ class Blog extends Component {
   }
 }
 
-const mapStateToProps = ({ initialState }) => {
+const mapStateToProps = ({ posts }) => {
   return {
-    news: initialState.news
+    news: posts.list
   }
 }
  
-export default connect(mapStateToProps)(Blog)
+export default connect(mapStateToProps, { fetchPosts })(Blog)

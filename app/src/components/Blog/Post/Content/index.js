@@ -4,6 +4,7 @@ import styled from 'styled-components'
 const TextContainer = styled.p`
   font-size: 20px;
   line-height: 30px;
+  word-wrap: break-word;
   @media (max-width: 767px){
     line-height: 24px;
     font-size: 16px;

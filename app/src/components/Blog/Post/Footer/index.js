@@ -26,7 +26,7 @@ const Footer = ({ author, date }) => {
   return (
     <FooterContainer>
       {author} 
-      <DateContainer>{date}</DateContainer>
+      <DateContainer>{date.slice(0, 10)}</DateContainer>
     </FooterContainer>
   )
 }

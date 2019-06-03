@@ -38,6 +38,7 @@ const ContentContainer = styled.section`
 class Post extends Component {
   render() {
     const { content } = this.props
+    console.log(content)
     return (
       <PostContainer>
         <ContentContainer>
@@ -45,7 +46,7 @@ class Post extends Component {
           <Content text={content.content} />
           <Footer date={content.date} author={content.author} />
         </ContentContainer>
-        <Avatar img={content.imageName} />
+        <Avatar img='news01' />
       </PostContainer>
     )
   }
