@@ -38,7 +38,6 @@ const ContentContainer = styled.section`
 class Post extends Component {
   render() {
     const { content } = this.props
-    console.log(content)
     return (
       <PostContainer>
         <ContentContainer>

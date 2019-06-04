@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components'
 import { connect } from 'react-redux'
+import { fetchPosts } from '../../reducers/actions/postsActions'
 import Title from './Title/index'
 import Content from './Content/index'
 import Avatar from './Avatar/index'
@@ -47,26 +48,32 @@ class News extends Component {
     }
   }
 
-  componentDidMount = () => {
+  componentWillMount = () => {
+    if(this.state.newsList.length === 0)
+      this.props.fetchPosts()
+  }
+
+  componentDidUpdate = () => {
     const { news } = this.props
     let listOfNews = [];
     let i = 0;
-    for (const key of Object.keys(news)) {
-      // console.log(key, links[key]);
-      listOfNews[i] = 
-      <ArticleContainer data={news[key]} key={key}>
-        <Title title={news[key].title} />
-        <SectionContent>
-          <Avatar img={news[key].imageName} />
-          <Content content={news[key].content} />
-        </SectionContent>
-        <Footer author={news[key].author} date={news[key].date} />
-      </ArticleContainer>
-      i++;
+    if(this.state.newsList.length === 0){
+      for (const key of Object.keys(news)) {
+        listOfNews[i] = 
+        <ArticleContainer data={news[key]} key={key}>
+          <Title title={news[key].title} />
+          <SectionContent>
+            <Avatar img='news02' />
+            <Content content={news[key].content} />
+          </SectionContent>
+          <Footer author={news[key].author} date={news[key].date} />
+        </ArticleContainer>
+        i++;
+      }
+      this.setState({
+        newsList: listOfNews
+      }) 
     }
-    this.setState({
-      newsList: listOfNews
-    }) 
   }
 
   render() {
@@ -80,10 +87,10 @@ class News extends Component {
   }
 }
 
-const mapStateToProps = ({ initialState }) => {
+const mapStateToProps = ({ posts }) => {
   return {
-    news: initialState.news
+    news: posts.list
   }
 }
 
-export default connect(mapStateToProps)(News);
+export default connect(mapStateToProps, { fetchPosts })(News);

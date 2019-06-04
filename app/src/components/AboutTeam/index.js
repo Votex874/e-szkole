@@ -40,9 +40,9 @@ class AboutTeam extends Component {
   }
 }
 
-const mapStateToProps = ({ aboutTeam }) => {
+const mapStateToProps = ({ initialState }) => {
   return {
-    aboutTeam
+    aboutTeam: initialState.aboutTeam
   }
 }
 

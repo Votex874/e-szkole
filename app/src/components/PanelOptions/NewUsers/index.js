@@ -170,7 +170,8 @@ class NewUser extends Component {
       }
       //check if passwrods are longer than 7 character
       if (password.length < 8 || password2.length < 8) {
-        this.setState({
+        isError = true;
+        this.setState({ 
           password: '',
           password2: '',
         })

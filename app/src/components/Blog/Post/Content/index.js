@@ -8,10 +8,12 @@ const TextContainer = styled.p`
   @media (max-width: 767px){
     line-height: 24px;
     font-size: 16px;
+    max-width: 250px;
   }
-  @media (min-width: 768px) and (max-width: 1400px){
+  @media (min-width: 768px) and (max-width: 1399px){
     font-size: 16px;
     line-height: 28px;
+    max-width: 250px;
   }
 `
 

@@ -4,6 +4,10 @@ const greenLight = '#34BD56';
 const lightBlue = '#00BEFF';
 const turquoise = '#fff';
 const darkBlue = '#0057AE';
+const lightGrey = '#F1F1F1';
+const darkGrey = '#5E5E5E';
+const grey = '#ABABAB';
+
 
 const shineOnHover = `
 position: relative;
@@ -48,4 +52,4 @@ position: relative;
   }
 `
 
-export { brown, greenLight, greenDark, lightBlue, shineOnHover, turquoise, darkBlue }
+export { brown, greenLight, greenDark, lightBlue, shineOnHover, turquoise, darkBlue, lightGrey, darkGrey, grey }

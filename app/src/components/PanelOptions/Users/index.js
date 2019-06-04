@@ -121,6 +121,7 @@ class Users extends Component{
     this.state = {
       usersData: [],
       list: [],
+      page: 1
     }
   }
 
@@ -138,14 +139,14 @@ class Users extends Component{
   }
 
   handleToggleContent = id => {
-    const { usersData } = this.state
+    const { usersData, page } = this.state
     let arrayData = [...usersData]
     arrayData[id].isContentVisible = !arrayData[id].isContentVisible
 
     this.setState({
       postsData: arrayData
     })
-    this.createArrayWithUsers();
+    this.createArrayWithUsers(page);
   }
 
   handleDeleteUser = id => {
@@ -166,6 +167,9 @@ class Users extends Component{
   }
 
   handlePagination = id => {
+    this.setState({
+      page: id
+    })
     this.createArrayWithUsers(id);
   }
 

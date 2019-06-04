@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import { connect } from 'react-redux'
 import SectionTitle from '../SectionTitle/index'
 import TeamIcon from '../../images/icons/users.png'
+import initialState from './../../reducers/initialState/initialState';
 
 const Container = styled.section`
   margin: 70px auto 100px auto;
@@ -40,9 +41,9 @@ class RecruitmentContent extends Component {
   }
 }
 
-const mapStateToProps = ({ aboutTeam }) => {
+const mapStateToProps = ({ initialState }) => {
   return {
-    aboutTeam
+    aboutTeam: initialState.aboutTeam
   }
 }
 

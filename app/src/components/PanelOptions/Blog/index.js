@@ -16,6 +16,9 @@ const ListOfPosts = styled.ol`
   display: block;
   margin: 0 0 0 30px;
   color: #ABABAB;
+  @media (max-width: 767px){
+    margin: 0;
+  }
 `
 
 const ItemOfList = styled.li`
@@ -48,6 +51,7 @@ const Container = styled.div`
   display: flex;
   margin: 7px 0;
   justify-content: space-between;
+  word-wrap: break-word;
   ${props => props.sub ? {
     justifyContent: 'flex-start',
   } : ''}
@@ -83,6 +87,14 @@ const Icon = styled.img`
 
 const ContentContainer = styled.p`
   margin-left: 5px;
+  max-width: 540px;
+  word-wrap: break-word;
+  @media (min-width: 768px) and (max-width: 1399px){
+    max-width: 700px;
+  }
+  @media (max-width: 767px){
+    max-width: 120px;
+  }
 `
 
 class Blog extends Component {
@@ -176,14 +188,14 @@ class Blog extends Component {
   }
 
   handleToggleContent = id => {
-    const { postsData } = this.state
+    const { postsData, page } = this.state
     let arrayPostData = [...postsData]
     arrayPostData[id].isContentVisible = !arrayPostData[id].isContentVisible
     
     this.setState({
       postsData: arrayPostData
     })
-    this.createArrayWithPosts();
+    this.createArrayWithPosts(page);
   }
 
   handleDeletePost = id => {
