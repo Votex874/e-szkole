@@ -7,7 +7,6 @@ import Footer from './Footer/index'
 import Title from './Title/index'
 
 const PostContainer = styled.article`
-  display: flex;
   margin: 60px auto;
   border-bottom: 1px solid #ccc;
   padding-bottom: 20px;
@@ -37,9 +36,9 @@ const ContentContainer = styled.section`
 
 class Post extends Component {
   render() {
-    const { content } = this.props
+    const { content, isActive } = this.props
     return (
-      <PostContainer>
+      <PostContainer style={{ display: isActive }} >
         <ContentContainer>
           <Title title={content.title} />
           <Content text={content.content} />

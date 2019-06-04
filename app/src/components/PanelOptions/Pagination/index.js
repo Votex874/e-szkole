@@ -58,11 +58,25 @@ class Pagination extends Component {
   createPaginationView = (activeItem = 0) => {
     const { numberOfItems } = this.props
     if(numberOfItems > 1){      
+  
       let arrayOfPagination = []
       for(let i = 0; i < numberOfItems; i++){
-        arrayOfPagination[i] = i
+        arrayOfPagination[i] =  i
       }
-      let arrayOfPaginationItems = [...arrayOfPagination].map(item => {
+      
+      let newArr = []
+      for(let i = 0; i < 3; i++){
+        newArr[i] = activeItem + i
+      }
+      if (newArr[2] !== numberOfItems - 1){
+        newArr[newArr.length] = numberOfItems - 1
+      }
+      console.log(newArr, 'newArr')
+  
+      console.log(arrayOfPagination, 'tablica paginacji')
+      console.log(activeItem)
+  
+      let arrayOfPaginationItems = [...newArr].map(item => {
         if(item === activeItem){
           return (
             <PaginationItem onClick={() => this.handleClickItem(item)} active key={item}>{item + 1}</PaginationItem>

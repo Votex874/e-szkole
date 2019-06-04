@@ -5,9 +5,8 @@ import { fetchPosts } from '../../reducers/actions/postsActions'
 
 import Post from './Post/index'
 import SectionTitle from '../SectionTitle/index'
-import Pagination from './Pagination/index'
 import IconNews from '../../images/icons/calendar.png'
-import initialState from './../../reducers/initialState/initialState';
+import Pagination from '../PanelOptions/Pagination/index'
 
 const BlogContainer = styled.section`
 `
@@ -28,16 +27,35 @@ class Blog extends Component {
   }
 
   componentDidUpdate = () => {
+    
+    if(this.state.postList.length === 0)
+      this.displayPosts();
+  }
+
+  displayPosts = (p = 1) => {
     const { news } = this.props
-    if(this.state.postList.length === 0){
-      let list = [];
-      list = news.map((post, i) => (
-        <Post key={i} content={post} />
-      ))
-      this.setState({
-        postList: list
+    const visiblePosts = this.visiblePosts(p)
+    
+    let list = [];
+    list = news.map((post, i) => {
+      const activePost = visiblePosts[i] ? 'flex' : 'none'
+        return <Post isActive={activePost} key={i} content={post} />
       })
-    }
+    this.setState({
+      postList: list
+    })
+  }
+
+  visiblePosts = (id = 1) => {
+    const num = id * 5
+    const isVisiblePostArray = [...this.props.news].map((e, i) => {
+      if(i < num && i > (num - 6)) {
+        return true
+      } else {
+        return false
+      }
+    })
+    return isVisiblePostArray;
   }
 
   handlePagination = (id) => {
@@ -51,6 +69,7 @@ class Blog extends Component {
     this.setState({
       currentPage: id
     })
+    this.displayPosts(id)
   }
 
   render(){
@@ -59,10 +78,9 @@ class Blog extends Component {
       <React.Fragment>
         <BlogContainer>
         <SectionTitle img={IconNews} title={this.state.title} />
-          {postList.slice((currentPage * 5), ((currentPage + 1) * 5))}
+          {postList}
         </BlogContainer>
-        <Pagination 
-          paginationClicked={this.handlePagination} />
+        <Pagination onClickPagination={this.handlePagination} numberOfItems={Math.ceil(postList.length / 5)}/>
       </React.Fragment>
     )
   }

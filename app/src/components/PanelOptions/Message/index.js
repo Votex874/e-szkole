@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 
 import styled from 'styled-components'
-import { lightBlue } from '../../../constColors'
+import { grey } from '../../../constColors'
 import { setTimeout } from 'timers';
 
 const Container = styled.div`
   text-align: center;
-  color: #5E5E5E;
+  color: ${grey};
   transition: .4s;
   border: 3px solid;
   padding: 15px;
