@@ -58,32 +58,51 @@ class Pagination extends Component {
   createPaginationView = (activeItem = 0) => {
     const { numberOfItems } = this.props
     if(numberOfItems > 1){      
-  
+
+      //using only on the first 2 pages
+      const basicArrayAtStart = [0, 1, 2]
+      //using only on the last page
+      const basicArrayAtEnd = [numberOfItems - 3 , numberOfItems - 2, numberOfItems - 1]
+
       let arrayOfPagination = []
       for(let i = 0; i < numberOfItems; i++){
         arrayOfPagination[i] =  i
       }
       
       let newArr = []
-      for(let i = 0; i < 3; i++){
-        newArr[i] = activeItem + i
-      }
-      if (newArr[2] !== numberOfItems - 1){
-        newArr[newArr.length] = numberOfItems - 1
-      }
-      console.log(newArr, 'newArr')
+      //using on every pages
+      newArr = [activeItem - 1, activeItem, activeItem + 1]
   
-      console.log(arrayOfPagination, 'tablica paginacji')
-      console.log(activeItem)
+      if(activeItem <= 1)
+        newArr = basicArrayAtStart;
+      if(activeItem >= numberOfItems - 1)
+        newArr = basicArrayAtEnd
+      
   
-      let arrayOfPaginationItems = [...newArr].map(item => {
+      let arrayOfPaginationItems = [...newArr].map((item, i) => {
+        let id;
+        switch(i){
+          case 0:
+            id = newArr[i]
+            break;
+          case 1:
+            id = newArr[i]
+            break;
+          case 2:
+            id = newArr[i]
+            break;
+          default:
+            id = item
+            break;
+        }
+        
         if(item === activeItem){
           return (
-            <PaginationItem onClick={() => this.handleClickItem(item)} active key={item}>{item + 1}</PaginationItem>
+            <PaginationItem onClick={() => this.handleClickItem(id)} active key={item}>{item + 1}</PaginationItem>
           )
         } else {        
           return (
-            <PaginationItem onClick={() => this.handleClickItem(item)} key={item}>{item + 1}</PaginationItem>
+            <PaginationItem onClick={() => this.handleClickItem(id)} key={item}>{item + 1}</PaginationItem>
           )
         }
       })
